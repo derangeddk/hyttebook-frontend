@@ -1,0 +1,23 @@
+{
+  "name": "hyttebook-frontend",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derangeddk/hyttebook-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derangeddk/hyttebook-frontend/issues"
+  },
+  "homepage": "https://github.com/derangeddk/hyttebook-frontend#readme",
+  "dependencies": {
+    "nuxt": "^2.2.0"
+  }
+}
