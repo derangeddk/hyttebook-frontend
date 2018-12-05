@@ -153,7 +153,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
 
     @import url('https://fonts.googleapis.com/css?family=Kanit');
     @import url('https://fonts.googleapis.com/css?family=Roboto');
