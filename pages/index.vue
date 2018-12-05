@@ -149,7 +149,7 @@
                 standardCleaningText: ""
             }
         },
-        components: { InformationHeader, NavMenu, FormPreview },
+        components: { InformationHeader, FormPreview },
     }
 </script>
 
