@@ -204,80 +204,41 @@
         margin: 30px;
         flex-grow: 1;
         border-collapse: collapse;
-        min-width: 500px;
-    }
-
-    thead th:nth-child(1) {
-        width: 40%;
-    }
-
-    thead th:nth-child(2) {
-        width: 10%;
-    }
-
-    thead th:nth-child(3) {
-        width: 50%;
+        box-shadow: 0 0 3px rgba(0,0,0,0.5), 0 3px 7px rgba(0,0,0,0.3);
     }
 
     table thead tr th {
+        font-weight: normal;
         color: black;
         padding: 5px;
         width: 100px;
-        background-color: #D0CDD7;
+        background-color: #D9D9D9;
         text-align: center;
-        border-bottom: 1px solid #353535;
-    }
-
-    table body tr {
-        border-bottom: 1px solid #353535;
     }
 
     tbody td:nth-child(1) {
         padding: 5px;
         text-align: left;
+        white-space: nowrap;
+    }
+
+    tbody tr:last-child td {
+        border: none;
     }
 
     tbody td:nth-child(2) {
         padding: 5px;
-        text-align: center;
+        text-align: left;
     }
 
-    table tr td, th {
-        border-bottom: 1px solid #353535;
+    table tr td, thead th {
+        border-bottom: 1px solid lighten(#353535, 50%);
     }
 
-    table tfoot td {
-        border-bottom: 0;
-    }
-
-    /* Form preview */
-
-    .form-preview {
-        margin: 20px;
-        padding: 20px;
-        min-height: 200px;
-        min-width: 400px;
-        flex-wrap: wrap;
-        color: black;
-        background: white;
-        display: inline-block;
-    }
-
-    .form-preview form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .form-preview form label {
-        margin-left: 40px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    .form-preview form button {
-        height: 40px;
-        width: 70px;
-        margin-left: 40%;
+    table textarea {
+        resize: none;
+        width: 400px;
+        height: 80px;
     }
 
 </style>
