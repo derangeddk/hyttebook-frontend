@@ -155,8 +155,8 @@
 
 <style lang="scss">
 
-    @import url('https://fonts.googleapis.com/css?family=Kanit');
-    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    @import url('https://fonts.googleapis.com/css?family=Kanit:100,300,400,400i,500,700');
+    @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,400i,500,700');
 
     body {
         font-family: 'Kanit', sans-serif;
