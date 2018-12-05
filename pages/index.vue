@@ -162,23 +162,40 @@
         font-family: 'Kanit', sans-serif;
         color: black;
         background: #FFFFFF;
+        margin: 0;
     }
 
-    .page-header {
-        display: inline-block;
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 100vh;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
     }
 
     h1, h2, h3 {
         text-align: center;
-        font-weight: bolder;
         font-family: 'Roboto', sans-serif;
+        font-weight: 300;
     }
 
     .rent-form-interface-container {
         display: flex;
+        flex-direction: column;
+        min-width: 500px;
+        flex-grow: 1;
+        align-items: center;
+    }
+
+    section.form-and-preview {
+        display: flex;
         flex-direction: row;
-        align-items: stretch;
-        min-height: 100vh;
         flex-wrap: wrap;
     }
 
