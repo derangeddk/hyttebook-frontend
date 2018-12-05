@@ -1,174 +1,135 @@
 <template>
     <main>
-        <!-- <information-header></information-header> -->
-        <!-- <nav-menu></nav-menu> -->
-        <div class="page-header">
-            <h1>Formular</h1>
+        <information-header></information-header>
+        <div class="main-content">
+            <div class="rent-form-interface-container">
+                <div class="main-header">
+                    <div class="page-header">
+                        <h1>Formular</h1>
+                    </div>
+                </div>
+                <section class="form-and-preview">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Indsti&shy;lling</th>
+                                <th>Værdi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Organistions type</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showOrgType">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bank navn</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showBankName">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Registrerings nummer</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showRegistration">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Konto nummer</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showAccount">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EAN nummer</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showEan">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rengøring</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showCleaningToggle">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ankomst tidspukt</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showArrivalTime">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Standard Ankomst tid</td>
+                                <td>
+                                    <label>
+                                        <input type="time" v-model="stdArrivalTime">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Afrejse tidspukt</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="showDepartureTime">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Standard Afrejse tid</td>
+                                <td>
+                                    <label>
+                                        <input type="time" v-model="stdDepartureTime">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Standard Information</td>
+                                <td>
+                                    <label>
+                                        <textarea v-model="stdInformation"></textarea>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form-preview
+                        :hutName="hutName"
+                        :showOrgType="showOrgType"
+                        :showBankName="showBankName"
+                        :showRegistration="showRegistration"
+                        :showAccount="showAccount"
+                        :showEan="showEan"
+                        :showCleaningToggle="showCleaningToggle"
+                        :showArrivalTime="showArrivalTime"
+                        :showDepartureTime="showDepartureTime"
+                        :standardArrivalTimeText="standardArrivalTimeText"
+                        :standardDepartureTimeText="standardDepartureTimeText"
+                        :standardCleaningText="standardCleaningText">
+                    </form-preview>
+                </section>
+            </div>
         </div>
-        <div class="rent-form-interface-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Felter</th>
-                        <th>Synlighed</th>
-                        <th>standard værdi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Organistions type</td>
-                        <td>
-                            <input type="checkbox" id="org-type" v-model="showOrgType">
-                            <label for="org-type"></label>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Organistions navn</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Fornavn</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Efternavn</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Adresse</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Postnummer</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>By</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Land</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Tlf nummer</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Bank navn</td>
-                        <td>
-                            <input type="checkbox" id="bank-name" v-model="showBankName">
-                            <label for="bank-name"></label>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Registrerings nummer</td>
-                        <td>
-                            <input type="checkbox" id="reg-number" v-model="showRegistration">
-                            <label for="reg-number"></label>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Konto nummer</td>
-                        <td>
-                            <input type="checkbox" id="acc-number" v-model="showAccount">
-                            <label for="acc-number"></label>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>EAN nummer</td>
-                        <td>
-                            <input type="checkbox" id="ean-number" v-model="showEan">
-                            <label for="ean-number"></label>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Rengøring</td>
-                        <td>
-                            <input type="checkbox" id="cleaning" v-model="showCleaningToggle">
-                            <label for="cleaning"></label>
-                        </td>
-                        <td>
-                            <input
-                                type="text"
-                                name="cleaning-default-message"
-                                placeholder="Rengøringen er inkluderet"
-                                v-model="standardCleaningText"
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ankomst dato</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Ankomst tidspukt</td>
-                        <td>
-                            <input type="checkbox" id="arrival-time" v-model="showArrivalTime">
-                            <label for="arrival-time"></label>
-                        </td>
-                        <td>
-                            <input type="time" name="arrival-default-time" placeholder="17:00" id="" v-model="standardArrivalTimeText">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Afrejse dato</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Afrejse tidspukt</td>
-                        <td>
-                            <input type="checkbox" id="depature-time" v-model="showDepartureTime">
-                            <label for="depature-time"></label>
-                        </td>
-                        <td>
-                            <input type="time" name="departure-default-time" placeholder="15:00" id="" v-model="standardDepartureTimeText">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <form-preview
-            :hutName="hutName"
-            :showOrgType="showOrgType"
-            :showBankName="showBankName"
-            :showRegistration="showRegistration"
-            :showAccount="showAccount"
-            :showEan="showEan"
-            :showCleaningToggle="showCleaningToggle"
-            :showArrivalTime="showArrivalTime"
-            :showDepartureTime="showDepartureTime"
-            :standardArrivalTimeText="standardArrivalTimeText"
-            :standardDepartureTimeText="standardDepartureTimeText"
-            :standardCleaningText="standardCleaningText">
-        </form-preview>
+        <footer>&copy; 8ISH</footer>
     </main>
-
 </template>
 
 <script>
     import InformationHeader from '~/components/information-header';
-    import NavMenu from '~/components/nav-menu';
     import FormPreview from '~/components/form-preview';
 
     export default {
