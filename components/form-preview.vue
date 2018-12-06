@@ -3,20 +3,23 @@
         <form>
             <div class="form-heading">
                 <h1>Book {{ hutName }}</h1>
+                <div class="standard-information-wrapper">
+                    <div class="standard-information" v-if="anyStandardInformation">
+                        <h3>Generel information</h3>
+                        <div class="standard-information-text" v-html="prettyStdInformation" v-if="prettyStdInformation"></div>
+                        <ul>
+                            <li v-if="stdArrivalTime && !showArrivalTimeInputfield">Man har adgang til hytten fra kl. {{ stdArrivalTime }} </li>
+                            <li v-if="stdDepartureTime && !showDepartureTimeInputfield">Hytten skal være forladt senest kl. {{ stdDepartureTime }}</li>
+                            <li v-if="defaultCleaningIncluded && !showCleaningToggle">Vi står for rengøringen</li>
+                            <li v-if="!defaultCleaningIncluded && !showCleaningToggle">Du står selv for rengøringen</li>
+                        </ul>
+
+                    </div>
+                </div>
                 <h2>Udfyld venligst alle felter</h2>
             </div>
 
-            <div class="standard-information-wrapper">
-                <div class="standard-information-text" v-if="standardArrivalTimeText || standardDepartureTimeText || standardCleaningText">
-                    <h3>Standard information</h3>
-                    <ul>
-                        <li v-if="standardCleaningText">{{ standardCleaningText }}</li>
-                        <li v-if="standardArrivalTimeText">Man har adgang til hytten fra kl. {{ standardArrivalTimeText }} </li>
-                        <li v-if="standardDepartureTimeText">Hytten skal være forladt senest kl. {{ standardDepartureTimeText }}</li>
-                    </ul>
 
-                </div>
-            </div>
             <label v-if="showOrgType">
                 <span>Organisations type</span>
                 <input type="text" name="form-org-type">
@@ -62,19 +65,17 @@
                 <input type="text" name="form-phone-number">
             </label>
 
-            <label v-if="showBankName">
+            <label v-if="showBankDetails">
                 <span>Bank navn</span>
                 <input type="text" name="form-bank-name" placeholder="Nordea">
             </label>
 
-            <label v-if="showRegistration">
-                <span>Reg</span>
-                <input type="text" name="form-reg-number">
-            </label>
-
-            <label v-if="showAccount">
-                <span>Konto</span>
-                <input type="text" name="form-acc-number">
+            <label v-if="showBankDetails">
+                <span>Reg. og kontonummer</span>
+                <div class="full-bank-account-number">
+                    <input class="bank-account-registration-number" type="text" name="form-reg-number">
+                    <input type="text" name="form-acc-number">
+                </div>
             </label>
 
             <label v-if="showEan">
@@ -84,7 +85,7 @@
 
             <label v-if="showCleaningToggle">
                 <span>Rengøring ønskes</span>
-                <input type="checkbox" name="form-cleaning" checked>
+                <input type="checkbox" name="form-cleaning" :checked="defaultCleaningIncluded">
             </label>
 
             <label>
@@ -94,7 +95,7 @@
 
             <label v-if="showArrivalTime">
                 <span>Ankomst tid</span>
-                <input type="time" name="form-arrival-time">
+                <input type="time" name="form-arrival-time" :value="stdArrivalTime">
             </label>
 
             <label>
@@ -104,7 +105,7 @@
 
             <label v-if="showDepartureTime">
                 <span>Afrejse tid</span>
-                <input type="time" name="form-departure-time">
+                <input type="time" name="form-departure-time" :value="stdDepartureTime">
             </label>
             <button type="submit" class="submit-button">Send</button>
         </form>
@@ -116,42 +117,56 @@
         props: [
             "hutName",
             "showOrgType",
-            "showBankName",
-            "showRegistration",
-            "showAccount",
+            "showBankDetails",
             "showEan",
             "showCleaningToggle",
+            "defaultCleaningIncluded",
             "showArrivalTime",
             "showDepartureTime",
-            "standardArrivalTimeText",
-            "standardDepartureTimeText",
-            "standardCleaningText"
+            "stdArrivalTime",
+            "stdDepartureTime",
+            "stdInformation"
         ],
         computed: {
-            showCleaningInputfield: function() {
-                if(this.showCleaningToggle) {
-                    this.standardCleaningText = "";
-                }
-                return true;
-            },
             showArrivalTimeInputfield: function() {
                 if(this.showArrivalTime) {
-                    this.standardArrivalTimeText = "";
+                    this.stdArrivalTime = "";
                     return true;
                 }
             },
             showDepartureTimeInputfield: function() {
                 if(this.showDepartureTime) {
-                    this.standardDepartureTimeText = "";
+                    this.stdDepartureTime = "";
                     return true;
                 }
+            },
+            anyStandardInformation: function() {
+                if(this.stdArrivalTime && !this.showArrivalTimeInputfield) {
+                    return true;
+                }
+                if(this.stdDepartureTime && !this.showDepartureTimeInputfield) {
+                    return true;
+                }
+                if(!this.showCleaningToggle) {
+                    return true;
+                }
+                if(this.stdInformation.trim()) {
+                    return true;
+                }
+
+                return false;
+            },
+            prettyStdInformation: function() {
+                return this.stdInformation.trim().replace(/\n/g, "<br>")
             }
         }
     }
 </script>
 
 <style lang="scss">
+
     .form-preview {
+        max-width: 340px;
         margin: 20px;
         padding: 20px;
         display: flex;
@@ -171,6 +186,29 @@
     .form-preview form {
         display: flex;
         flex-direction: column;
+    }
+
+    .standard-information {
+        padding-bottom: 0.3em;
+        margin-top: 2.5em;
+    }
+
+    .standard-information h3 {
+        margin-bottom: 5px;
+        text-align: left;
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .standard-information-text {
+        line-height: 125%;
+        margin-bottom: 1em;
+    }
+
+    .standard-information ul {
+        margin: 0;
+        margin-bottom: 20px;
+        padding-left: 20px;
     }
 
     .form-preview input[type=text] {
@@ -200,4 +238,22 @@
         margin: 0.4em 0;
         flex-direction: column;
     }
+
+    .full-bank-account-number {
+        display: flex;
+        flex-direction: row;
+
+        input {
+            flex-grow: 3;
+            flex-basis: 200px;
+            width: 0;
+
+            &.bank-account-registration-number {
+                flex-basis: 60px;
+                margin-right: 10px;
+            }
+        }
+    }
+
+
 </style>
