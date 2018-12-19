@@ -18,7 +18,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Organistions type</td>
+                                <td>Vis "Organistions type"</td>
                                 <td>
                                     <label>
                                         <input type="checkbox" v-model="showOrgType">
@@ -26,31 +26,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Bank navn</td>
+                                <td>Lad lejere indtaste bankoplysinger</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showBankName">
+                                        <input type="checkbox" v-model="showBankDetails">
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Registrerings nummer</td>
-                                <td>
-                                    <label>
-                                        <input type="checkbox" v-model="showRegistration">
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Konto nummer</td>
-                                <td>
-                                    <label>
-                                        <input type="checkbox" v-model="showAccount">
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EAN nummer</td>
+                                <td>Lad lejere indtaste EAN nummer</td>
                                 <td>
                                     <label>
                                         <input type="checkbox" v-model="showEan">
@@ -58,7 +42,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Rengøring</td>
+                                <td>Vis "Rengøring"</td>
                                 <td>
                                     <label>
                                         <input type="checkbox" v-model="showCleaningToggle">
@@ -66,7 +50,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Ankomst tidspukt</td>
+                                <td>Standardværdi for "Rengøring"</td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" v-model="defaultCleaningIncluded">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vis "Ankomst tidspukt"</td>
                                 <td>
                                     <label>
                                         <input type="checkbox" v-model="showArrivalTime">
@@ -74,7 +66,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Standard Ankomst tid</td>
+                                <td>Standard ankomst tid</td>
                                 <td>
                                     <label>
                                         <input type="time" v-model="stdArrivalTime">
@@ -82,7 +74,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Afrejse tidspukt</td>
+                                <td>Vis "Afrejse tidspukt"</td>
                                 <td>
                                     <label>
                                         <input type="checkbox" v-model="showDepartureTime">
@@ -90,7 +82,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Standard Afrejse tid</td>
+                                <td>Standard afrejse tid</td>
                                 <td>
                                     <label>
                                         <input type="time" v-model="stdDepartureTime">
@@ -98,7 +90,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Standard Information</td>
+                                <td>Generel information</td>
                                 <td>
                                     <label>
                                         <textarea v-model="stdInformation"></textarea>
@@ -110,16 +102,15 @@
                     <form-preview
                         :hutName="hutName"
                         :showOrgType="showOrgType"
-                        :showBankName="showBankName"
-                        :showRegistration="showRegistration"
-                        :showAccount="showAccount"
+                        :showBankDetails="showBankDetails"
                         :showEan="showEan"
                         :showCleaningToggle="showCleaningToggle"
                         :showArrivalTime="showArrivalTime"
                         :showDepartureTime="showDepartureTime"
-                        :standardArrivalTimeText="standardArrivalTimeText"
-                        :standardDepartureTimeText="standardDepartureTimeText"
-                        :standardCleaningText="standardCleaningText">
+                        :stdArrivalTime="stdArrivalTime"
+                        :stdDepartureTime="stdDepartureTime"
+                        :stdInformation="stdInformation"
+                        :defaultCleaningIncluded="defaultCleaningIncluded">
                     </form-preview>
                 </section>
             </div>
@@ -133,23 +124,28 @@
     import FormPreview from '~/components/form-preview';
 
     export default {
+        head: {
+            meta: [
+                { charset: 'utf-8' },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+            ]
+        },
         data() {
             return {
                 hutName: process.env.hutName,
                 showOrgType: false,
-                showBankName: false,
-                showRegistration: false,
-                showAccount: false,
+                showBankDetails: false,
                 showEan: false,
                 showCleaningToggle: false,
+                defaultCleaningIncluded: true,
                 showArrivalTime: false,
                 showDepartureTime: false,
-                standardArrivalTimeText: "",
-                standardDepartureTimeText: "",
-                standardCleaningText: ""
+                stdArrivalTime: "",
+                stdDepartureTime: "",
+                stdInformation: ""
             }
         },
-        components: { InformationHeader, FormPreview },
+        components: { InformationHeader, FormPreview }
     }
 </script>
 
@@ -185,10 +181,13 @@
         font-weight: 300;
     }
 
+    .page-header h1 {
+        margin-top: 100px;
+    }
+
     .rent-form-interface-container {
         display: flex;
         flex-direction: column;
-        min-width: 500px;
         flex-grow: 1;
         align-items: center;
     }
@@ -196,12 +195,14 @@
     section.form-and-preview {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+
+        @media (max-width: 800px) {
+            flex-wrap: wrap;
+        }
     }
 
     table {
-        padding: 40px;
-        margin: 30px;
+        margin: 20px;
         flex-grow: 1;
         border-collapse: collapse;
         box-shadow: 0 0 3px rgba(0,0,0,0.5), 0 3px 7px rgba(0,0,0,0.3);
@@ -211,7 +212,6 @@
         font-weight: normal;
         color: black;
         padding: 5px;
-        width: 100px;
         background-color: #D9D9D9;
         text-align: center;
     }
@@ -220,6 +220,7 @@
         padding: 5px;
         text-align: left;
         white-space: nowrap;
+        vertical-align: top;
     }
 
     tbody tr:last-child td {
@@ -237,8 +238,11 @@
 
     table textarea {
         resize: none;
-        width: 400px;
+        width: 100%;
+        max-width: 320px;
         height: 80px;
+        font-family: inherit;
+        font-size: 1em;
     }
 
 </style>
