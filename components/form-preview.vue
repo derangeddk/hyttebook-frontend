@@ -16,97 +16,109 @@
 
                     </div>
                 </div>
-                <h2>Udfyld venligst alle felter</h2>
+                <!--h2>Udfyld venligst alle felter</h2-->
             </div>
 
+            <div class="form-field-column-container">
+                <div class="form-field-column">
+                    <label v-if="showOrgType">
+                        <span>Organisations type</span>
+                        <select>
+                            <option value="skole">Skole</option>
+                        </select>
+                    </label>
 
-            <label v-if="showOrgType">
-                <span>Organisations type</span>
-                <input type="text" name="form-org-type">
-            </label>
+                    <label>
+                        <span>Organisations navn</span>
+                        <input type="text" name="form-org-name" placeholder="DDS">
+                    </label>
 
-            <label>
-                <span>Organisations navn</span>
-                <input type="text" name="form-org-name" placeholder="DDS">
-            </label>
+                    <label>
+                        <span>Fornavn</span>
+                        <input type="text" name="form-firstname" required placeholder="Birgitte">
+                    </label>
 
-            <label>
-                <span>Fornavn</span>
-                <input type="text" name="form-firstname" placeholder="Birgitte">
-            </label>
+                    <label>
+                        <span>Efternavn</span>
+                        <input type="text" name="form-lastname" required placeholder="Hansen">
+                    </label>
 
-            <label>
-                <span>Efternavn</span>
-                <input type="text" name="form-lastname" placeholder="Hansen">
-            </label>
+                    <label>
+                        <span>Adresse</span>
+                        <input type="text" name="form-address" required placeholder="Vejnavn og nr">
+                    </label>
 
-            <label>
-                <span>Adresse</span>
-                <input type="text" name="form-address" placeholder="Vejnavn og nr">
-            </label>
+                    <label>
+                        <span>Postnummer</span>
+                        <input type="text" name="form-zipcode" required placeholder="2500">
+                    </label>
 
-            <label>
-                <span>Postnummer</span>
-                <input type="text" name="form-zipcode" placeholder="2500">
-            </label>
+                    <label>
+                        <span>By</span>
+                        <input type="text" name="form-city" required placeholder="Valby">
+                    </label>
 
-            <label>
-                <span>By</span>
-                <input type="text" name="form-city" placeholder="Valby">
-            </label>
+                    <label>
+                        <span>Land</span>
+                        <input type="text" name="form-country" placeholder="Denmark">
+                    </label>
 
-            <label>
-                <span>Land</span>
-                <input type="text" name="form-country" placeholder="Denmark">
-            </label>
+                    <label>
+                        <span>Telefon</span>
+                        <input type="text" name="form-phone-number">
+                    </label>
 
-            <label>
-                <span>Telefon</span>
-                <input type="text" name="form-phone-number">
-            </label>
-
-            <label v-if="showBankDetails">
-                <span>Bank navn</span>
-                <input type="text" name="form-bank-name" placeholder="Nordea">
-            </label>
-
-            <label v-if="showBankDetails">
-                <span>Reg. og kontonummer</span>
-                <div class="full-bank-account-number">
-                    <input class="bank-account-registration-number" type="text" name="form-reg-number">
-                    <input type="text" name="form-acc-number">
+                    <label>
+                        <span>Email</span>
+                        <input type="email" required name="form-email">
+                    </label>
                 </div>
-            </label>
 
-            <label v-if="showEan">
-                <span>EAN</span>
-                <input type="text" name="form-ean-number">
-            </label>
+                <div class="form-field-column">
+                    <label v-if="showBankDetails">
+                        <span>Bank navn</span>
+                        <input type="text" name="form-bank-name" placeholder="Nordea">
+                    </label>
 
-            <label v-if="showCleaningToggle">
-                <span>Rengøring ønskes</span>
-                <input type="checkbox" name="form-cleaning" :checked="defaultCleaningIncluded">
-            </label>
+                    <label v-if="showBankDetails">
+                        <span>Reg. og kontonummer</span>
+                        <div class="full-bank-account-number">
+                            <input class="bank-account-registration-number" type="text" name="form-reg-number">
+                            <input type="text" name="form-acc-number">
+                        </div>
+                    </label>
 
-            <label>
-                <span>Ankomst dato</span>
-                <input type="date" name="form-arrival-date">
-            </label>
+                    <label v-if="showEan">
+                        <span>EAN</span>
+                        <input type="text" name="form-ean-number">
+                    </label>
 
-            <label v-if="showArrivalTime">
-                <span>Ankomst tid</span>
-                <input type="time" name="form-arrival-time" :value="stdArrivalTime">
-            </label>
+                    <label v-if="showCleaningToggle">
+                        <span>Rengøring ønskes</span>
+                        <input type="checkbox" name="form-cleaning" :checked="defaultCleaningIncluded">
+                    </label>
 
-            <label>
-                <span>Afrejse dato</span>
-                <input type="date" name="form-departure-date">
-            </label>
+                    <label>
+                        <span>Ankomst dato</span>
+                        <input type="date" name="form-arrival-date">
+                    </label>
 
-            <label v-if="showDepartureTime">
-                <span>Afrejse tid</span>
-                <input type="time" name="form-departure-time" :value="stdDepartureTime">
-            </label>
+                    <label v-if="showArrivalTime">
+                        <span>Ankomst tid</span>
+                        <input type="time" name="form-arrival-time" :value="stdArrivalTime">
+                    </label>
+
+                    <label>
+                        <span>Afrejse dato</span>
+                        <input type="date" name="form-departure-date">
+                    </label>
+
+                    <label v-if="showDepartureTime">
+                        <span>Afrejse tid</span>
+                        <input type="time" name="form-departure-time" :value="stdDepartureTime">
+                    </label>
+                </div>
+            </div>
             <button type="submit" class="submit-button">Send</button>
         </form>
     </div>
@@ -127,6 +139,17 @@
             "stdDepartureTime",
             "stdInformation"
         ],
+        data() {
+            return {
+                organizationalTypes: [
+                    "skole",
+                    "universitet",
+                    "daginstitution",
+                    "frivillig",
+                    "spejder"
+                ]
+            }
+        },
         computed: {
             showArrivalTimeInputfield: function() {
                 if(this.showArrivalTime) {
@@ -166,13 +189,14 @@
 <style lang="scss">
 
     .form-preview {
-        max-width: 340px;
         margin: 20px;
         padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-grow: 1;
+        flex-shrink: 1;
         box-shadow: 0 0 3px rgba(0,0,0,0.5), 0 3px 7px rgba(0,0,0,0.3);
+        width: 100%;
+        max-width: 680px;
+        box-sizing: border-box;
     }
 
     .form-preview h1 {
@@ -211,7 +235,29 @@
         padding-left: 20px;
     }
 
+    .form-field-column-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .form-field-column {
+        flex-shrink: 1;
+        flex-grow: 1;
+        min-width: 200px;
+        max-width: 400px;
+
+        &:nth-child(n-1) {
+            margin: 0 10px 0 0;
+        }
+    }
+
     .form-preview input[type=text] {
+        font-family: inherit;
+    }
+
+    .form-preview input[type=email] {
         font-family: inherit;
     }
 
