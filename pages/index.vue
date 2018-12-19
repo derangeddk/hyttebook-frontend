@@ -124,6 +124,12 @@
     import FormPreview from '~/components/form-preview';
 
     export default {
+        head: {
+            meta: [
+                { charset: 'utf-8' },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+            ]
+        },
         data() {
             return {
                 hutName: process.env.hutName,
@@ -175,10 +181,13 @@
         font-weight: 300;
     }
 
+    .page-header h1 {
+        margin-top: 100px;
+    }
+
     .rent-form-interface-container {
         display: flex;
         flex-direction: column;
-        min-width: 500px;
         flex-grow: 1;
         align-items: center;
     }
@@ -186,12 +195,14 @@
     section.form-and-preview {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+
+        @media (max-width: 800px) {
+            flex-wrap: wrap;
+        }
     }
 
     table {
-        padding: 40px;
-        margin: 30px;
+        margin: 20px;
         flex-grow: 1;
         border-collapse: collapse;
         box-shadow: 0 0 3px rgba(0,0,0,0.5), 0 3px 7px rgba(0,0,0,0.3);
@@ -201,7 +212,6 @@
         font-weight: normal;
         color: black;
         padding: 5px;
-        width: 100px;
         background-color: #D9D9D9;
         text-align: center;
     }
@@ -228,7 +238,8 @@
 
     table textarea {
         resize: none;
-        width: 320px;
+        width: 100%;
+        max-width: 320px;
         height: 80px;
         font-family: inherit;
         font-size: 1em;
