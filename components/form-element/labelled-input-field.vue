@@ -1,6 +1,9 @@
 <template>
     <label class="labelled-input-field">
-        <span>{{ label }}</span>
+        <span>
+            {{ label }}
+            <span class="labelled-input-field-required" v-if="typeof required !== 'undefined'">(påkrævet)</span>
+        </span>
         <input type="text" :placeholder="placeholder" :value="value" @input="onValueChange" :required="required">
     </label>
 </template>
@@ -19,5 +22,8 @@ export default {
 <style>
 .labelled-input-field input {
     font-family: inherit;
+}
+.labelled-input-field-required {
+    font-size: 0.7em;
 }
 </style>
