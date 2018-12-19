@@ -28,45 +28,14 @@
                         </select>
                     </label>
 
-                    <label>
-                        <span>Organisations navn</span>
-                        <input type="text" name="form-org-name" placeholder="DDS">
-                    </label>
-
-                    <label>
-                        <span>Fornavn</span>
-                        <input type="text" name="form-firstname" required placeholder="Birgitte">
-                    </label>
-
-                    <label>
-                        <span>Efternavn</span>
-                        <input type="text" name="form-lastname" required placeholder="Hansen">
-                    </label>
-
-                    <label>
-                        <span>Adresse</span>
-                        <input type="text" name="form-address" required placeholder="Vejnavn og nr">
-                    </label>
-
-                    <label>
-                        <span>Postnummer</span>
-                        <input type="text" name="form-zipcode" required placeholder="2500">
-                    </label>
-
-                    <label>
-                        <span>By</span>
-                        <input type="text" name="form-city" required placeholder="Valby">
-                    </label>
-
-                    <label>
-                        <span>Land</span>
-                        <input type="text" name="form-country" placeholder="Denmark">
-                    </label>
-
-                    <label>
-                        <span>Telefon</span>
-                        <input type="text" name="form-phone-number">
-                    </label>
+                    <labelled-input-field label="Organisationsnavn" placeholder="DDS"></labelled-input-field>
+                    <labelled-input-field label="Fornavn" placeholder="Birgitte" required></labelled-input-field>
+                    <labelled-input-field label="Efternavn" placeholder="Hansen" required></labelled-input-field>
+                    <labelled-input-field label="Adresse" placeholder="Vejnavn og nr" required></labelled-input-field>
+                    <labelled-input-field label="Postnummer" placeholder="2500" required></labelled-input-field>
+                    <labelled-input-field label="By" placeholder="Valby" required></labelled-input-field>
+                    <labelled-input-field label="Land" placeholder="Danmark" required></labelled-input-field>
+                    <labelled-input-field label="Telefonnummer" placeholder="00 00 00 00"></labelled-input-field>
 
                     <label>
                         <span>Email</span>
@@ -75,10 +44,7 @@
                 </div>
 
                 <div class="form-field-column">
-                    <label v-if="showBankDetails">
-                        <span>Bank navn</span>
-                        <input type="text" name="form-bank-name" placeholder="Nordea">
-                    </label>
+                    <labelled-input-field label="Navn på din bank" placeholder="Nordea" v-if="showBankDetails"></labelled-input-field>
 
                     <label v-if="showBankDetails">
                         <span>Reg. og kontonummer</span>
@@ -88,10 +54,7 @@
                         </div>
                     </label>
 
-                    <label v-if="showEan">
-                        <span>EAN</span>
-                        <input type="text" name="form-ean-number">
-                    </label>
+                    <labelled-input-field label="EAN-nummer" v-if="showEan"></labelled-input-field>
 
                     <label v-if="showCleaningToggle">
                         <span>Rengøring ønskes</span>
@@ -125,6 +88,8 @@
 </template>
 
 <script>
+    import LabelledInputField from '~/components/form-element/labelled-input-field';
+
     export default {
         props: [
             "hutName",
@@ -182,7 +147,8 @@
             prettyStdInformation: function() {
                 return this.stdInformation.trim().replace(/\n/g, "<br>")
             }
-        }
+        },
+        components: { LabelledInputField }
     }
 </script>
 
