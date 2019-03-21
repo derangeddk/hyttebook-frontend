@@ -113,6 +113,8 @@
                         :defaultCleaningIncluded="defaultCleaningIncluded">
                     </form-preview>
                 </section>
+
+                <button type="submit" class="submit-button">Gem</button>
             </div>
         </div>
         <footer>&copy; 8ISH</footer>
@@ -238,11 +240,28 @@
 
     table textarea {
         resize: none;
-        width: 100%;
+        width: 96%;
         max-width: 320px;
         height: 80px;
         font-family: inherit;
         font-size: 1em;
+    }
+
+    .submit-button {
+        background-color: lighten(#3C6E71, 20%);
+        color:black;
+        width: 30%;
+        padding: 20px;
+        margin: 0.9em 0;
+        border: none;
+        font-size: 1em;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background-color 200ms;
+    }
+
+    .submit-button:hover {
+        background-color: lighten(#3C6E71, 15%);
     }
 
 </style>
