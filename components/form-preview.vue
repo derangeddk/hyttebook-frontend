@@ -171,61 +171,19 @@
             prettyStdInformation: function() {
                 return this.stdInformation.trim().replace(/\n/g, "<br>")
             },
-            hutName: {
-                get() {
-                    return this.$store.getters.hutName;
-                }
-            },
-            showOrgType: {
-                get() {
-                    return this.$store.getters.showOrgType;
-                }
-            },
-            showBankDetails: {
-                get() {
-                    return this.$store.getters.showBankDetails;
-                }
-            },
-            showEan: {
-                get() {
-                    return this.$store.getters.showEan;
-                }
-            },
-            showCleaningToggle: {
-                get() {
-                    return this.$store.getters.showCleaningToggle;
-                }
-            },
-            defaultCleaningIncluded: {
-                get() {
-                    return this.$store.getters.defaultCleaningIncluded;
-                }
-            },
-            showArrivalTime: {
-                get() {
-                    return this.$store.getters.showArrivalTime;
-                }
-            },
-            showDepartureTime: {
-                get() {
-                    return this.$store.getters.showDepartureTime;
-                }
-            },
-            stdArrivalTime: {
-                get() {
-                    return this.$store.getters.stdArrivalTime;
-                }
-            },
-            stdDepartureTime: {
-                get() {
-                    return this.$store.getters.stdDepartureTime;
-                }
-            },
-            stdInformation: {
-                get() {
-                    return this.$store.getters.stdInformation;
-                }
-            },
+            ...mapGetters([
+                'hutName',
+                'showOrgType',
+                'showBankDetails',
+                'showEan',
+                'showCleaningToggle',
+                'defaultCleaningIncluded',
+                'showArrivalTime',
+                'showDepartureTime',
+                'stdArrivalTime',
+                'stdDepartureTime',
+                'stdInformation'
+            ]),
         }
     }
 </script>
