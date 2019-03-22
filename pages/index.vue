@@ -99,19 +99,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <form-preview
-                        :hutName="hutName"
-                        :showOrgType="showOrgType"
-                        :showBankDetails="showBankDetails"
-                        :showEan="showEan"
-                        :showCleaningToggle="showCleaningToggle"
-                        :showArrivalTime="showArrivalTime"
-                        :showDepartureTime="showDepartureTime"
-                        :stdArrivalTime="stdArrivalTime"
-                        :stdDepartureTime="stdDepartureTime"
-                        :stdInformation="stdInformation"
-                        :defaultCleaningIncluded="defaultCleaningIncluded">
-                    </form-preview>
+                    <form-preview></form-preview>
                 </section>
 
                 <button type="submit" class="submit-button">Gem</button>
@@ -134,18 +122,90 @@
         },
         data() {
             return {
-                hutName: process.env.hutName,
-                showOrgType: false,
-                showBankDetails: false,
-                showEan: false,
-                showCleaningToggle: false,
-                defaultCleaningIncluded: true,
-                showArrivalTime: false,
-                showDepartureTime: false,
-                stdArrivalTime: "",
-                stdDepartureTime: "",
-                stdInformation: ""
+
             }
+        },
+        computed: {
+            showOrgType: {
+                set(showOrgType) {
+                    this.$store.commit('changeFormConfigValue', {config: 'showOrgType', value: showOrgType});
+                },
+                get() {
+                    return this.$store.getters.showOrgType;
+                }
+            },
+            showBankDetails: {
+                set(showBankDetails) {
+                    this.$store.commit('changeFormConfigValue', {config: 'showBankDetails', value: showBankDetails});
+                },
+                get() {
+                    return this.$store.getters.showBankDetails;
+                }
+            },
+            showEan: {
+                set(showEan) {
+                    this.$store.commit('changeFormConfigValue', {config: 'showEan', value: showEan});
+                },
+                get() {
+                    return this.$store.getters.showEan;
+                }
+            },
+            showCleaningToggle: {
+                set(showCleaningToggle) {
+                    this.$store.commit('changeFormConfigValue', {config: 'showCleaningToggle', value: showCleaningToggle});
+                },
+                get() {
+                    return this.$store.getters.showCleaningToggle;
+                }
+            },
+            defaultCleaningIncluded: {
+                set(defaultCleaningIncluded) {
+                    this.$store.commit('changeFormConfigValue', {config: 'defaultCleaningIncluded', value: defaultCleaningIncluded});
+                },
+                get() {
+                    return this.$store.getters.defaultCleaningIncluded;
+                }
+            },
+            showArrivalTime: {
+                set(showArrivalTime) {
+                    this.$store.commit('changeFormConfigValue', {config: 'showArrivalTime', value: showOshowArrivalTimergType});
+                },
+                get() {
+                    return this.$store.getters.showArrivalTime;
+                }
+            },
+            showDepartureTime: {
+                set(showDepartureTime) {
+                    this.$store.commit('changeFormConfigValue', {config: 'showDepartureTime', value: showDepartureTime});
+                },
+                get() {
+                    return this.$store.getters.showDepartureTime;
+                }
+            },
+            stdArrivalTime: {
+                set(stdArrivalTime) {
+                    this.$store.commit('changeFormConfigValue', {config: 'stdArrivalTime', value: stdArrivalTime});
+                },
+                get() {
+                    return this.$store.getters.stdArrivalTime;
+                }
+            },
+            stdDepartureTime: {
+                set(stdDepartureTime) {
+                    this.$store.commit('changeFormConfigValue', {config: 'stdDepartureTime', value: stdDepartureTime});
+                },
+                get() {
+                    return this.$store.getters.stdDepartureTime;
+                }
+            },
+            stdInformation: {
+                set(stdInformation) {
+                    this.$store.commit('changeFormConfigValue', {config: 'stdInformation', value: stdInformation});
+                },
+                get() {
+                    return this.$store.getters.stdInformation;
+                }
+            },
         },
         components: { InformationHeader, FormPreview }
     }
