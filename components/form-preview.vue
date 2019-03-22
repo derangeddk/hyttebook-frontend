@@ -162,16 +162,13 @@
                 if(!this.showCleaningToggle) {
                     return true;
                 }
-                if(this.stdInformation.trim() && this.stdInformation != undefined) {
+                if(this.stdInformation.trim()) {
                     return true;
                 }
 
                 return false;
             },
             prettyStdInformation: function() {
-                if(this.stdInformation == null || this.stdInformation == undefined) {
-                    return;
-                }
                 return this.stdInformation.trim().replace(/\n/g, "<br>")
             },
             hutName: {

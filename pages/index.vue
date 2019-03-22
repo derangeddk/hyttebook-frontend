@@ -168,7 +168,7 @@
             },
             showArrivalTime: {
                 set(showArrivalTime) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showArrivalTime', value: showOshowArrivalTimergType});
+                    this.$store.commit('changeFormConfigValue', {config: 'showArrivalTime', value: showArrivalTime});
                 },
                 get() {
                     return this.$store.getters.showArrivalTime;

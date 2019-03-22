@@ -15,6 +15,9 @@ const state = () => ({
 });
 
 const getters = {
+    hutName: state => {
+        return state.formConfig.hutName;
+    },
     showOrgType: state => {
         return state.formConfig.showOrgType;
     },
@@ -46,7 +49,7 @@ const getters = {
         return state.formConfig.stdDepartureTime;
     },
     stdInformation: state => {
-        return state.stdInformation;
+        return state.formConfig.stdInformation;
     }
 }
 
