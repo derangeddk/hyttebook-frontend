@@ -21,7 +21,7 @@
                                 <td>Vis "Organistions type"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showOrgType">
+                                        <input type="checkbox" @change="toggleShowOrgType" :checked="showOrgType">
                                     </label>
                                 </td>
                             </tr>
@@ -29,7 +29,7 @@
                                 <td>Lad lejere indtaste bankoplysinger</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showBankDetails">
+                                        <input type="checkbox" @change="toggleShowBankDetails" :checked="showBankDetails">
                                     </label>
                                 </td>
                             </tr>
@@ -37,7 +37,7 @@
                                 <td>Lad lejere indtaste EAN nummer</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showEan">
+                                        <input type="checkbox" @change="toggleShowEan" :checked="showEan">
                                     </label>
                                 </td>
                             </tr>
@@ -45,7 +45,7 @@
                                 <td>Vis "Rengøring"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showCleaningToggle">
+                                        <input type="checkbox" @change="toggleShowCleaningToggle" :checked="showCleaningToggle">
                                     </label>
                                 </td>
                             </tr>
@@ -53,7 +53,7 @@
                                 <td>Standardværdi for "Rengøring"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="defaultCleaningIncluded">
+                                        <input type="checkbox" @change="toggleDefaultCleaningIncluded" :checked="defaultCleaningIncluded">
                                     </label>
                                 </td>
                             </tr>
@@ -61,7 +61,7 @@
                                 <td>Vis "Ankomst tidspukt"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showArrivalTime">
+                                        <input type="checkbox" @change="toggleShowArrivalTime" :checked="showArrivalTime">
                                     </label>
                                 </td>
                             </tr>
@@ -69,7 +69,7 @@
                                 <td>Standard ankomst tid</td>
                                 <td>
                                     <label>
-                                        <input type="time" v-model="stdArrivalTime">
+                                        <input type="time" @input="setStdArrivalTime($event.target.value)" :value="stdArrivalTime">
                                     </label>
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@
                                 <td>Vis "Afrejse tidspukt"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" v-model="showDepartureTime">
+                                        <input type="checkbox" @change="toggleShowDepartureTime" :checked="showDepartureTime">
                                     </label>
                                 </td>
                             </tr>
@@ -85,7 +85,7 @@
                                 <td>Standard afrejse tid</td>
                                 <td>
                                     <label>
-                                        <input type="time" v-model="stdDepartureTime">
+                                        <input type="time" @input="setStdDepartureTime($event.target.value)" :value="stdDepartureTime">
                                     </label>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
                                 <td>Generel information</td>
                                 <td>
                                     <label>
-                                        <textarea v-model="stdInformation"></textarea>
+                                        <textarea @input="setStdInformation($event.target.value)" :value="stdInformation"></textarea>
                                     </label>
                                 </td>
                             </tr>
@@ -112,6 +112,8 @@
 <script>
     import InformationHeader from '~/components/information-header';
     import FormPreview from '~/components/form-preview';
+    import { mapMutations } from 'vuex';
+    import { mapState } from 'vuex';
 
     export default {
         head: {
@@ -125,87 +127,34 @@
 
             }
         },
+        methods: {
+            ...mapMutations({
+                toggleShowOrgType: 'showOrgType',
+                toggleShowBankDetails: 'showBankDetails',
+                toggleShowEan: 'showEan',
+                toggleShowCleaningToggle: 'showCleaningToggle',
+                toggleDefaultCleaningIncluded: 'defaultCleaningIncluded',
+                toggleShowArrivalTime: 'showArrivalTime',
+                toggleShowDepartureTime: 'showDepartureTime',
+                setStdArrivalTime: 'stdArrivalTime',
+                setStdDepartureTime: 'stdDepartureTime',
+                setStdInformation: 'stdInformation'
+            }),
+        },
         computed: {
-            showOrgType: {
-                set(showOrgType) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showOrgType', value: showOrgType});
-                },
-                get() {
-                    return this.$store.getters.showOrgType;
-                }
-            },
-            showBankDetails: {
-                set(showBankDetails) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showBankDetails', value: showBankDetails});
-                },
-                get() {
-                    return this.$store.getters.showBankDetails;
-                }
-            },
-            showEan: {
-                set(showEan) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showEan', value: showEan});
-                },
-                get() {
-                    return this.$store.getters.showEan;
-                }
-            },
-            showCleaningToggle: {
-                set(showCleaningToggle) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showCleaningToggle', value: showCleaningToggle});
-                },
-                get() {
-                    return this.$store.getters.showCleaningToggle;
-                }
-            },
-            defaultCleaningIncluded: {
-                set(defaultCleaningIncluded) {
-                    this.$store.commit('changeFormConfigValue', {config: 'defaultCleaningIncluded', value: defaultCleaningIncluded});
-                },
-                get() {
-                    return this.$store.getters.defaultCleaningIncluded;
-                }
-            },
-            showArrivalTime: {
-                set(showArrivalTime) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showArrivalTime', value: showArrivalTime});
-                },
-                get() {
-                    return this.$store.getters.showArrivalTime;
-                }
-            },
-            showDepartureTime: {
-                set(showDepartureTime) {
-                    this.$store.commit('changeFormConfigValue', {config: 'showDepartureTime', value: showDepartureTime});
-                },
-                get() {
-                    return this.$store.getters.showDepartureTime;
-                }
-            },
-            stdArrivalTime: {
-                set(stdArrivalTime) {
-                    this.$store.commit('changeFormConfigValue', {config: 'stdArrivalTime', value: stdArrivalTime});
-                },
-                get() {
-                    return this.$store.getters.stdArrivalTime;
-                }
-            },
-            stdDepartureTime: {
-                set(stdDepartureTime) {
-                    this.$store.commit('changeFormConfigValue', {config: 'stdDepartureTime', value: stdDepartureTime});
-                },
-                get() {
-                    return this.$store.getters.stdDepartureTime;
-                }
-            },
-            stdInformation: {
-                set(stdInformation) {
-                    this.$store.commit('changeFormConfigValue', {config: 'stdInformation', value: stdInformation});
-                },
-                get() {
-                    return this.$store.getters.stdInformation;
-                }
-            },
+            ...mapState([
+                'showOrgType',
+                'showBankDetails',
+                'showEan',
+                'showCleaningToggle',
+                'defaultCleaningIncluded',
+                'showArrivalTime',
+                'showDepartureTime',
+                'stdArrivalTime',
+                'stdDepartureTime',
+                'stdInformation'
+            ])
+
         },
         components: { InformationHeader, FormPreview }
     }

@@ -42,9 +42,6 @@ const getters = {
     stdArrivalTime: state => {
         return state.formConfig.stdArrivalTime;
     },
-    stdArrivalTime: state => {
-        return state.formConfig.stdArrivalTime;
-    },
     stdDepartureTime: state => {
         return state.formConfig.stdDepartureTime;
     },
@@ -54,11 +51,35 @@ const getters = {
 }
 
 const mutations = {
-    setFormConfig(state, newFormConfig) {
-        state.formConfig = newFormConfig;
+    showOrgType: state => {
+        state.formConfig.showOrgType = !state.formConfig.showOrgType;
     },
-    changeFormConfigValue(state, {config, value: newValue}) {
-        state.formConfig[config] = newValue;
+    showBankDetails: state => {
+        state.formConfig.showBankDetails = !state.formConfig.showBankDetails;
+    },
+    showEan: state => {
+        state.formConfig.showEan = !state.formConfig.showEan;
+    },
+    showCleaningToggle: state => {
+        state.formConfig.showCleaningToggle = !state.formConfig.showCleaningToggle;
+    },
+    defaultCleaningIncluded: state => {
+        state.formConfig.defaultCleaningIncluded = !state.formConfig.defaultCleaningIncluded;
+    },
+    showArrivalTime: state => {
+        state.formConfig.showArrivalTime = !state.formConfig.showArrivalTime;
+    },
+    showDepartureTime: state => {
+        state.formConfig.showDepartureTime = !state.formConfig.showDepartureTime;
+    },
+    stdArrivalTime: (state, newValue) => {
+        state.formConfig.stdArrivalTime = newValue;
+    },
+    stdDepartureTime: (state, newValue) => {
+        state.formConfig.stdDepartureTime = newValue;
+    },
+    stdInformation: (state, newValue) => {
+        state.formConfig.stdInformation = newValue;
     }
 }
 
