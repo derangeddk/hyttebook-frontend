@@ -3,6 +3,7 @@
         <information-header></information-header>
         <div class="main-content">
             <div class="rent-form-interface-container">
+                <state-status-indicator></state-status-indicator>
                 <div class="main-header">
                     <div class="page-header">
                         <h1>Formular</h1>
@@ -111,6 +112,7 @@
 
 <script>
     import InformationHeader from '~/components/information-header';
+    import StateStatusIndicator from '~/components/state-status-indicator';
     import FormPreview from '~/components/form-preview';
     import { mapMutations, mapGetters } from 'vuex';
 
@@ -159,7 +161,7 @@
                 this.$store.dispatch('persistFormConfig', state.formConfig);
             });
         },
-        components: { InformationHeader, FormPreview }
+        components: { InformationHeader, FormPreview, StateStatusIndicator }
     }
 </script>
 
