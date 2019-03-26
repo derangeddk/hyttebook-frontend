@@ -112,8 +112,7 @@
 <script>
     import InformationHeader from '~/components/information-header';
     import FormPreview from '~/components/form-preview';
-    import { mapMutations } from 'vuex';
-    import { mapState } from 'vuex';
+    import { mapMutations, mapGetters } from 'vuex';
 
     export default {
         head: {
@@ -142,7 +141,7 @@
             }),
         },
         computed: {
-            ...mapState([
+            ...mapGetters([
                 'showOrgType',
                 'showBankDetails',
                 'showEan',
@@ -154,7 +153,11 @@
                 'stdDepartureTime',
                 'stdInformation'
             ])
-
+        },
+        mounted() {
+            this.$store.subscribe((mutation, state) => {
+                this.$store.dispatch('persistFormConfig', state.formConfig);
+            });
         },
         components: { InformationHeader, FormPreview }
     }

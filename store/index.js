@@ -1,3 +1,5 @@
+import Axios from 'axios';
+
 const state = () => ({
     formConfig: {
         hutName: process.env.hutName,
@@ -83,8 +85,21 @@ const mutations = {
     }
 }
 
+const actions = {
+    persistFormConfig: async (context, payload) => {
+        console.log(payload);
+        Axios.post("/form-config", payload, {
+            baseURL: 'https://localhost:5000',
+            params: {
+                ID: 1
+            },
+        });
+    }
+}
+
 export default {
     state,
     getters,
-    mutations
+    mutations,
+    actions
 }
