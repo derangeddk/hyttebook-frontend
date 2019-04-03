@@ -53,11 +53,15 @@ export default {
                 response = await axios.post('http://localhost:4752/users', payload, { headers });
             } catch(err) {
                 console.error("shit happened while trying to register user: ", err);
+                return;
             }
 
             this.setUsername(this.username);
             this.setHutName(this.hutName);
             this.$router.push("/form-configuration");
+
+
+
         }
     },
     components: { LabelledInput, PrimaryButton, SecondaryButton }
