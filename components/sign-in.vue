@@ -1,28 +1,23 @@
 <template>
-    <div class="sign-in-container">
-        <label for="email">
-            <span class="email">Email</span>
-            <input type="email" v-model="email">
-        </label>
-        <label for="password">
-            <span class="password">Password</span>
-            <input type="password" v-model="password">
-        </label>
-        <button type="submit" class="submit-button" @click="signUp();">Login</button>
-        <button class="request-sign-up" @click="$emit('requestSignUp')">Gå til registrering</button>
-    </div>
+    <form @submit.prevent="signUp();" class="sign-in-container">
+        <labelled-input name="email" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input name="password" type="password" label="Password" v-model="password"></labelled-input>
+        <primary-button type="submit">Login</primary-button>
+
+        <secondary-button @click="$emit('requestSignUp')">Gå til registrering</secondary-button>
+    </form>
 </template>
 
 
 <script>
 import Axios from 'axios';
+import LabelledInput from '~/components/labelled-input';
+import PrimaryButton from '~/components/primary-button';
+import SecondaryButton from '~/components/secondary-button';
 
 export default {
     data() {
         return {
-            hutName: "",
-            fullName: "",
-            username: "",
             email: "",
             password: ""
         }
@@ -44,7 +39,8 @@ export default {
 
             Axios.post('http://localhost:4752/users', payload, { headers });
         }
-    }
+    },
+    components: { LabelledInput, PrimaryButton, SecondaryButton }
 }
 </script>
 
@@ -58,22 +54,6 @@ export default {
 
     .submit-button:hover {
         background-color: lighten(#3C6E71, 15%);
-    }
-
-    .submit-button {
-        background-color: lighten(#3C6E71, 20%);
-        color:black;
-        padding: 20px;
-        margin: 0.9em 0;
-        border: none;
-        font-size: 1em;
-        font-family: inherit;
-        cursor: pointer;
-        transition: background-color 200ms;
-    }
-
-    .request-sign-up {
-
     }
 
 </style>

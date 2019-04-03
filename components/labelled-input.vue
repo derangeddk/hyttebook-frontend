@@ -1,7 +1,7 @@
 <template>
     <label class="labelled-input" :for="name">
         <span>{{ label }}</span>
-        <input :type="type" :value="value" @input="$emit('input', value)">
+        <input :name="name" :type="type" :value="value" @input="$emit('input', value)">
     </label>
 </template>
 
