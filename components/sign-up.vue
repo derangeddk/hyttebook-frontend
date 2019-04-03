@@ -13,7 +13,7 @@
 
 
 <script>
-import Axios from 'axios';
+import axios from 'axios';
 import LabelledInput from '~/components/labelled-input';
 import PrimaryButton from '~/components/primary-button';
 import SecondaryButton from '~/components/secondary-button';
@@ -43,7 +43,14 @@ export default {
                 'Content-type': 'application/json'
             }
 
-            Axios.post('http://localhost:4752/users', payload, { headers });
+            let response;
+            try {
+                response = await axios.post('http://localhost:4752/users', payload, { headers });
+            } catch(err) {
+                console.error("shit happened while trying to register user: ", err);
+            }
+
+            this.$router.push("/form-configuration");
         }
     },
     components: { LabelledInput, PrimaryButton, SecondaryButton }
