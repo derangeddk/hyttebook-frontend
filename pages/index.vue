@@ -28,10 +28,6 @@ export default {
         height: 100vh;
         width: 100vw;
         align-items: stretch;
-
-        & > * {
-            border: 1px solid red;
-        }
     }
 </style>
 

@@ -167,15 +167,7 @@
 
 <style lang="scss">
 
-    @import url('https://fonts.googleapis.com/css?family=Kanit:100,300,400,400i,500,700');
-    @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,400i,500,700');
 
-    body {
-        font-family: 'Kanit', sans-serif;
-        color: black;
-        background: #FFFFFF;
-        margin: 0;
-    }
 
     main {
         display: flex;
@@ -189,12 +181,6 @@
         display: flex;
         flex-direction: row;
         width: 100%;
-    }
-
-    h1, h2, h3 {
-        text-align: center;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 300;
     }
 
     .page-header h1 {
