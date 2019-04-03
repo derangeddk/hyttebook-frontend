@@ -20,8 +20,8 @@
             <span class="password">Password</span>
             <input type="password" v-model="password">
         </label>
-        <button type="submit" class="submit-button" @click="signUp();">Registrer</button>
-        <button @click="$emit('requestLogin')">Gå til login</button>
+        <button type="submit" class="sign-up-button" @click="signUp();">Registrer</button>
+        <button class="request-login" @click="$emit('requestLogin')">Gå til login</button>
     </div>
 </template>
 
@@ -42,7 +42,6 @@ export default {
     props: ["visible"],
     methods: {
         signUp: async function () {
-            console.log("login fired");
             let payload = {
                 hutName: this.hutName,
                 fullName: this.fullName,
@@ -70,27 +69,61 @@ export default {
         overflow: hidden;
         flex-grow: 0;
         transition: width 0.4s;
+        justify-content: center;
+        align-items: center;
     }
 
     .sign-up-container-visible {
         width: 50vw;
     }
 
-    .submit-button:hover {
+    label input, label span {
+        display:block;
+    }
+
+    label {
+        margin-bottom: 10px;
+    }
+
+    label span {
+        font-weight: normal;
+        font-size: 0.80em;
+        font-family: "Roboto";
+    }
+
+    input {
+        height: 30px;
+        width: 200px;
+        font-weight: 400;
+        font-family: "Kanit";
+        padding: 3px 4px;
+        font-size: 1.2em;
+    }
+
+    .sign-up-button:hover {
         background-color: lighten(#3C6E71, 15%);
     }
 
-    .submit-button {
+    .sign-up-button {
         background-color: lighten(#3C6E71, 20%);
         color:black;
-        width: 100%;
         padding: 20px;
         margin: 0.9em 0;
+        width: 200px;
         border: none;
         font-size: 1em;
-        font-family: inherit;
+        font-family: "Kanit";
         cursor: pointer;
         transition: background-color 200ms;
+    }
+
+    .request-login {
+        border: 1px solid lighten(#3C6E71, 20%);
+        color: lighten(#3C6E71, 20%);
+        background-color: transparent;
+        width: 200px;
+        padding: 10px;
+        margin-top: 60px;
     }
 
 </style>
