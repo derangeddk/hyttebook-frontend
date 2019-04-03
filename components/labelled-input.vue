@@ -1,13 +1,13 @@
 <template>
     <label class="labelled-input" :for="name">
         <span>{{ label }}</span>
-        <input :name="name" :type="type" :value="value" @input="$emit('input', value)">
+        <input :name="name" :type="type" :value="value" @input="$emit('input', $event.target.value)">
     </label>
 </template>
 
 <script>
 export default {
-    props: [ "name", "type", "label", "value" ]
+    props: [ "name", "type", "label", "value" ],
 }
 </script>
 
