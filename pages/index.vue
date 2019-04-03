@@ -1,8 +1,12 @@
 <template>
     <main class="welcome-page">
-        <sign-in :visible="showSignIn" @requestSignUp="showSignIn = false"></sign-in>
+        <hideable-container :visible="showSignIn">
+            <sign-in @requestSignUp="showSignIn = false"></sign-in>
+        </hideable-container>
         <welcome></welcome>
-        <sign-up :visible="!showSignIn" @requestLogin="showSignIn = true"></sign-up>
+        <hideable-container :visible="!showSignIn">
+            <sign-up @requestLogin="showSignIn = true"></sign-up>
+        </hideable-container>
     </main>
 </template>
 
@@ -10,9 +14,10 @@
 import SignUp from '~/components/sign-up';
 import SignIn from '~/components/sign-in';
 import Welcome from '~/components/welcome';
+import HideableContainer from '~/components/hideable-container';
 
 export default {
-    components: { SignUp, SignIn, Welcome },
+    components: { SignUp, SignIn, Welcome, HideableContainer },
     data() {
         return {
             showSignIn: false,

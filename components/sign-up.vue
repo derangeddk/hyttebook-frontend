@@ -1,25 +1,15 @@
 <template>
-    <div :class="'sign-up-container' + (visible ? ' sign-up-container-visible' : '')">
-        <label for="hut-name">
-            <span class="hut-name">Hytte navn</span>
-            <input type="text" v-model="hutName">
-        </label>
-        <label for="first-name">
-            <span class="first-name">Fulde navn</span>
-            <input type="text" v-model="fullName">
-        </label>
-        <label for="last-name">
-            <span class="last-name">Brugernavn</span>
-            <input type="text" v-model="username">
-        </label>
-        <label for="email">
-            <span class="email">Email</span>
-            <input type="email" v-model="email">
-        </label>
-        <label for="password">
-            <span class="password">Password</span>
-            <input type="password" v-model="password">
-        </label>
+    <div class="sign-up-container">
+        <labelled-input name="hut-name" type="text" label="Hytte navn" v-model="hutName"></labelled-input>
+
+        <labelled-input name="first-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
+
+        <labelled-input name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
+
+        <labelled-input name="email" type="email" label="Email" v-model="email"></labelled-input>
+
+        <labelled-input name="password" type="password" label="Password" v-model="password"></labelled-input>
+
         <button type="submit" class="sign-up-button" @click="signUp();">Registrer</button>
         <button class="request-login" @click="$emit('requestLogin')">Gå til login</button>
     </div>
@@ -28,6 +18,7 @@
 
 <script>
 import Axios from 'axios';
+import LabelledInput from '~/components/labelled-input';
 
 export default {
     data() {
@@ -39,7 +30,6 @@ export default {
             password: ""
         }
     },
-    props: ["visible"],
     methods: {
         signUp: async function () {
             let payload = {
@@ -56,7 +46,8 @@ export default {
 
             Axios.post('http://localhost:4752/users', payload, { headers });
         }
-    }
+    },
+    components: { LabelledInput }
 }
 </script>
 
@@ -65,39 +56,6 @@ export default {
     .sign-up-container {
         display: flex;
         flex-direction: column;
-        width: 0;
-        overflow: hidden;
-        flex-grow: 0;
-        transition: width 0.4s;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .sign-up-container-visible {
-        width: 50vw;
-    }
-
-    label input, label span {
-        display:block;
-    }
-
-    label {
-        margin-bottom: 10px;
-    }
-
-    label span {
-        font-weight: normal;
-        font-size: 0.80em;
-        font-family: "Roboto";
-    }
-
-    input {
-        height: 30px;
-        width: 200px;
-        font-weight: 400;
-        font-family: "Kanit";
-        padding: 3px 4px;
-        font-size: 1.2em;
     }
 
     .sign-up-button:hover {
