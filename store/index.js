@@ -15,7 +15,9 @@ const state = () => ({
     },
     user: {
         username: "",
-        hutName: ""
+        hutName: "",
+        email: "",
+        fullName: ""
     }
 });
 
@@ -59,6 +61,12 @@ const getters = {
 }
 
 const mutations = {
+    setUser: (state, user) => {
+        state.user.username = user.username;
+        state.user.hutName = user.hutName;
+        state.user.email = user.email;
+        state.user.fullName = user.fullName;
+    },
     setUsername: (state, username) => {
         state.user.username = username;
     },
