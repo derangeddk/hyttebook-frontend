@@ -1,5 +1,5 @@
 <template>
-    <div :class="'sign-up-container' + (visible ? ' sign-up-container-visible' : '')">
+    <div :class="'sign-in-container' + (visible ? ' sign-in-container-visible' : '')">
         <label for="hut-name">
             <span class="hut-name">Hytte navn</span>
             <input type="text" v-model="hutName">
@@ -20,8 +20,8 @@
             <span class="password">Password</span>
             <input type="password" v-model="password">
         </label>
-        <button type="submit" class="submit-button" @click="signUp();">Registrer</button>
-        <button @click="$emit('requestLogin')">Gå til login</button>
+        <button type="submit" class="submit-button" @click="signUp();">Login</button>
+        <button @click="$emit('requestSignUp')">Gå til registrering</button>
     </div>
 </template>
 
@@ -62,17 +62,17 @@ export default {
 </script>
 
 <style lang="scss">
-
-    .sign-up-container {
+    .sign-in-container {
         display: flex;
         flex-direction: column;
         width: 0;
         overflow: hidden;
         flex-grow: 0;
         transition: width 0.4s;
+
     }
 
-    .sign-up-container-visible {
+    .sign-in-container-visible {
         width: 50vw;
     }
 
