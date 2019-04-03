@@ -190,6 +190,10 @@
 
 <style lang="scss">
 
+    h1 {
+        text-align: center;
+    }
+
     .form-preview {
         margin: 20px;
         padding: 20px;

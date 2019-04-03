@@ -3,7 +3,7 @@
         <div class="header-wrapper">
             <div class="site-name">
                 <h1>
-                    Hytte Index
+                    HUAS
                 </h1>
             </div>
             <div class="logged-in-user-information">
@@ -35,7 +35,8 @@ import { mapGetters } from 'vuex';
     nav {
         width: 100%;
         height: 60px;
-        background-color: darken(#3C6E71, 5%);
+        background-color: darken(#3C6E71, 2%);
+        background-image: linear-gradient(0deg, darken(#3C6E71, 2%) 40%, lighten(#3C6E71, 1%));
         text-align: center;
         color: rgb(230,230,230);
     }
