@@ -1,7 +1,4 @@
 module.exports = {
-    env: {
-        username: "Philip Dein",
-        hutName: "Awesome Spejderhytte",
-    },
+    env: { },
     css: ["~/css/main.scss"]
 }

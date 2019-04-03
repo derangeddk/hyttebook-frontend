@@ -2,7 +2,6 @@ import Axios from 'axios';
 
 const state = () => ({
     formConfig: {
-        hutName: process.env.hutName,
         showOrgType: false,
         showBankDetails: false,
         showEan: false,
@@ -13,12 +12,19 @@ const state = () => ({
         stdArrivalTime: "",
         stdDepartureTime: "",
         stdInformation: ""
+    },
+    user: {
+        username: "",
+        hutName: ""
     }
 });
 
 const getters = {
     hutName: state => {
-        return state.formConfig.hutName;
+        return state.user.hutName;
+    },
+    username: state => {
+        return state.user.username;
     },
     showOrgType: state => {
         return state.formConfig.showOrgType;
@@ -53,6 +59,12 @@ const getters = {
 }
 
 const mutations = {
+    setUsername: (state, username) => {
+        state.user.username = username;
+    },
+    setHutName: (state, hutName) => {
+        state.user.hutName = hutName;
+    },
     showOrgType: state => {
         state.formConfig.showOrgType = !state.formConfig.showOrgType;
     },
@@ -80,8 +92,8 @@ const mutations = {
     stdDepartureTime: (state, newValue) => {
         state.formConfig.stdDepartureTime = newValue;
     },
-    stdInformation: (state, newValue) => {
-        state.formConfig.stdInformation = newValue;
+    stdInformation: (state, text) => {
+        state.formConfig.stdInformation = text;
     }
 }
 

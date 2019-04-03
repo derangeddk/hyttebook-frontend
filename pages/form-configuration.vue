@@ -144,6 +144,7 @@
         },
         computed: {
             ...mapGetters([
+                'hutName',
                 'showOrgType',
                 'showBankDetails',
                 'showEan',
@@ -154,7 +155,7 @@
                 'stdArrivalTime',
                 'stdDepartureTime',
                 'stdInformation'
-            ])
+            ]),
         },
         mounted() {
             this.$store.subscribe((mutation, state) => {

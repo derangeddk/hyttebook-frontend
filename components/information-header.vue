@@ -15,24 +15,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
     export default {
         data() {
             return {
-                username: "",
-                hutName: "",
             }
         },
-        async mounted() {
-            this.getUsername();
-            this.getHutname();
-        },
-        methods: {
-            getUsername: function() {
-                return this.username = process.env.username;
-            },
-            getHutname: function() {
-                return this.hutName = process.env.hutName;
-            },
+        computed: {
+            ...mapGetters([
+                'hutName',
+                'username'
+            ]),
         }
     }
 </script>
