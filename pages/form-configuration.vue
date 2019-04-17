@@ -185,7 +185,7 @@
     }
 
     .page-header h1 {
-        margin-top: 100px;
+        margin-top: 80px;
     }
 
     .rent-form-interface-container {
