@@ -16,7 +16,6 @@
 
                     </div>
                 </div>
-                <!--h2>Udfyld venligst alle felter</h2-->
             </div>
 
             <div class="form-field-column-container">
