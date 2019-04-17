@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="login();" class="sign-in-container">
-        <labelled-input name="username" type="text" label="Username" v-model="username"></labelled-input>
+        <labelled-input name="email" type="email" label="Email" v-model="email"></labelled-input>
         <labelled-input name="password" type="password" label="Password" v-model="password"></labelled-input>
         <primary-button type="submit">Login</primary-button>
 
@@ -19,7 +19,7 @@ import { mapMutations } from 'vuex';
 export default {
     data() {
         return {
-            username: "",
+            email: "",
             password: ""
         }
     },
@@ -29,7 +29,7 @@ export default {
         ]),
         login: async function () {
             let payload = {
-                username: this.username,
+                email: this.email,
                 password: this.password
             };
 
@@ -44,7 +44,8 @@ export default {
                 return;
             }
 
-            let user = response.data.user.data;
+            let user = response.data.user;
+            console.log(user);
 
             this.setUser(user)
             this.$router.push("/form-configuration");
