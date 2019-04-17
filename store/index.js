@@ -1,6 +1,7 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 const state = () => ({
+    formState: '',
     formConfig: {
         showOrgType: false,
         showBankDetails: false,
@@ -107,13 +108,16 @@ const mutations = {
 
 const actions = {
     persistFormConfig: async (context, payload) => {
-        console.log(payload);
-        Axios.post("/form-config", payload, {
-            baseURL: 'https://localhost:4752',
-            params: {
-                ID: 1
-            },
-        });
+        let headers = {
+            'Content-type': 'application/json'
+        }
+
+        try {
+            await axios.post("http://localhost:4752/forms", payload, { headers });
+        } catch(error) {
+            console.error("failed to create form: ", error);
+            return;
+        }
     }
 }
 
