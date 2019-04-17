@@ -1,7 +1,7 @@
 <template>
     <label class="labelled-input" :for="name">
         <span>{{ label }}</span>
-        <input :name="name" :type="type" :value="value" @input="$emit('input', $event.target.value)">
+        <input :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)">
     </label>
 </template>
 
