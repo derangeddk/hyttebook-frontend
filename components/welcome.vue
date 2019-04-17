@@ -14,36 +14,11 @@
 
 
 <script>
-import Axios from 'axios';
-
 export default {
     data() {
         return {
-            hutName: "",
-            fullName: "",
-            username: "",
-            email: "",
-            password: ""
         }
     },
-    methods: {
-        signUp: async function () {
-            console.log("login fired");
-            let payload = {
-                hutName: this.hutName,
-                fullName: this.fullName,
-                username: this.username,
-                email: this.email,
-                password: this.password
-            };
-
-            let headers = {
-                'Content-type': 'application/json'
-            }
-
-            Axios.post('http://localhost:4752/users', payload, { headers });
-        }
-    }
 }
 </script>
 
