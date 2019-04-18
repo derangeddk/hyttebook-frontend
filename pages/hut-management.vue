@@ -17,7 +17,7 @@
         data() {
             return {
                 hasHuts: false,
-                registerHut: true,
+                registerHut: false,
             }
         },
         components: { InformationHeader, NoHut, HutRegistration }

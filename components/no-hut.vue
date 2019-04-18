@@ -1,7 +1,12 @@
 <template>
     <div class="no-hut-container" >
-        <p>Du har ikke registreret en hytte endnu. Vil du gøre det nu?</p>
-        <primary-button type="submit" @click="$emit('requestRegistration')">Registrer Hytte</primary-button>
+        <h1>Du er ikke forbundet til en hytte endnu</h1>
+        <h3>Man skal være forbundet til en hytte.</h3>
+        <h3>Vil du registrere en hytte eller forbinde dig til en hytte?</h3>
+        <div class="button-container">
+            <primary-button type="submit" @click="$emit('requestRegistration')">Registrer Hytte</primary-button>
+            <primary-button type="submit" @click="$emit('requestAffiliation')">Forbind til hytte</primary-button>
+        </div>
     </div>
 </template>
 
@@ -18,8 +23,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        align-self: center;
         width: 100vw;
+        margin-top: 100px;
+
+        h3 {
+            margin: 0;
+        }
+
+        .button-container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 600px;
+        }
     }
 </style>

@@ -51,8 +51,8 @@ export default {
             let response;
             try {
                 response = await axios.post('http://localhost:4752/users', payload, { headers });
-            } catch(err) {
-                console.error("failed to register user: ", err);
+            } catch(error) {
+                console.error("failed to register user: ", error);
                 return;
             }
 
