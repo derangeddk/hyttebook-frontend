@@ -103,7 +103,7 @@
                     <form-preview></form-preview>
                 </section>
 
-                <button type="submit" class="submit-button">Gem</button>
+                <button @click="save();" type="submit" class="submit-button">Gem</button>
             </div>
         </div>
         <footer>&copy; 8ISH</footer>
@@ -141,6 +141,9 @@
                 setStdDepartureTime: 'stdDepartureTime',
                 setStdInformation: 'stdInformation'
             }),
+            async save(){
+                this.$store.dispatch('instantSaveFormConfig', this.$store.state.formConfig);
+            }
         },
         computed: {
             ...mapGetters([
@@ -159,7 +162,7 @@
         },
         mounted() {
             this.$store.subscribe((mutation, state) => {
-                this.$store.dispatch('persistFormConfig', state.formConfig);
+                this.$store.dispatch('timeoutFormConfigSave', state.formConfig);
             });
         },
         components: { InformationHeader, FormPreview, StateStatusIndicator }

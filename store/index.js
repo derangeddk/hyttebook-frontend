@@ -108,12 +108,15 @@ const mutations = {
 }
 
 const actions = {
-    persistFormConfig: async (context, payload) => {
+    timeoutFormConfigSave: async (context, payload) => {
         clearTimeout(state.timer);
         state.timer = setTimeout(() => {
-            save(payload);
+            saveForm(payload);
         }, 600);
     },
+    instantSaveFormConfig: async (context, payload) => {
+        saveForm(payload);
+    }
 
 }
 
@@ -124,7 +127,7 @@ export default {
     actions
 }
 
-async function save(payload) {
+async function saveForm(payload) {
     let headers = {
         'Content-type': 'application/json'
     }
