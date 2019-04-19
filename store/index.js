@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const state = () => ({
+    timer: 0,
     formState: '',
     formConfig: {
         showOrgType: false,
@@ -108,17 +109,12 @@ const mutations = {
 
 const actions = {
     persistFormConfig: async (context, payload) => {
-        let headers = {
-            'Content-type': 'application/json'
-        }
+        clearTimeout(state.timer);
+        state.timer = setTimeout(() => {
+            save(payload);
+        }, 600);
+    },
 
-        try {
-            await axios.post("http://localhost:4752/forms", payload, { headers });
-        } catch(error) {
-            console.error("failed to create form: ", error);
-            return;
-        }
-    }
 }
 
 export default {
@@ -126,4 +122,17 @@ export default {
     getters,
     mutations,
     actions
+}
+
+async function save(payload) {
+    let headers = {
+        'Content-type': 'application/json'
+    }
+
+    try {
+        await axios.post("http://localhost:4752/forms", payload, { headers });
+    } catch(error) {
+        console.error("failed to create form: ", error);
+        return;
+    }
 }
