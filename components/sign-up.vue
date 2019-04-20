@@ -1,6 +1,5 @@
 <template>
     <form @submit.prevent="signUp();" class="sign-up-container">
-        <labelled-input name="hut-name" type="text" label="Hytte navn" v-model="hutName"></labelled-input>
         <labelled-input name="first-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
         <labelled-input name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
         <labelled-input name="email" type="email" label="Email" v-model="email"></labelled-input>
@@ -23,7 +22,6 @@ import { mapMutations } from 'vuex';
 export default {
     data() {
         return {
-            hutName: "",
             fullName: "",
             username: "",
             email: "",
@@ -33,11 +31,9 @@ export default {
     methods: {
         ...mapMutations([
             'setUsername',
-            'setHutName'
         ]),
         signUp: async function () {
             let payload = {
-                hutName: this.hutName,
                 fullName: this.fullName,
                 username: this.username,
                 email: this.email,
@@ -57,7 +53,6 @@ export default {
             }
 
             this.setUsername(this.username);
-            this.setHutName(this.hutName);
             this.$router.push("/form-configuration");
         }
     },
