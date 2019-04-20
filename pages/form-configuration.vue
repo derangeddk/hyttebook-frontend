@@ -22,7 +22,7 @@
                                 <td>Vis "Organistions type"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleShowOrgType" :checked="showOrgType">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowOrgType" :checked="showOrgType">
                                     </label>
                                 </td>
                             </tr>
@@ -30,7 +30,7 @@
                                 <td>Lad lejere indtaste bankoplysinger</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleShowBankDetails" :checked="showBankDetails">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowBankDetails" :checked="showBankDetails">
                                     </label>
                                 </td>
                             </tr>
@@ -38,7 +38,7 @@
                                 <td>Lad lejere indtaste EAN nummer</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleShowEan" :checked="showEan">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowEan" :checked="showEan">
                                     </label>
                                 </td>
                             </tr>
@@ -46,7 +46,7 @@
                                 <td>Vis "Rengøring"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleShowCleaningToggle" :checked="showCleaningToggle">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowCleaningToggle" :checked="showCleaningToggle">
                                     </label>
                                 </td>
                             </tr>
@@ -54,7 +54,7 @@
                                 <td>Standardværdi for "Rengøring"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleDefaultCleaningIncluded" :checked="defaultCleaningIncluded">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleDefaultCleaningIncluded" :checked="defaultCleaningIncluded">
                                     </label>
                                 </td>
                             </tr>
@@ -62,7 +62,7 @@
                                 <td>Vis "Ankomst tidspukt"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleShowArrivalTime" :checked="showArrivalTime">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowArrivalTime" :checked="showArrivalTime">
                                     </label>
                                 </td>
                             </tr>
@@ -70,7 +70,7 @@
                                 <td>Standard ankomst tid</td>
                                 <td>
                                     <label>
-                                        <input type="time" @input="setStdArrivalTime($event.target.value)" :value="stdArrivalTime">
+                                        <input @keyup="timeoutedSave()" @click="timeoutedSave()" type="time" @input="setStdArrivalTime($event.target.value)" :value="stdArrivalTime">
                                     </label>
                                 </td>
                             </tr>
@@ -78,7 +78,7 @@
                                 <td>Vis "Afrejse tidspukt"</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" @change="toggleShowDepartureTime" :checked="showDepartureTime">
+                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowDepartureTime" :checked="showDepartureTime">
                                     </label>
                                 </td>
                             </tr>
@@ -86,7 +86,7 @@
                                 <td>Standard afrejse tid</td>
                                 <td>
                                     <label>
-                                        <input type="time" @input="setStdDepartureTime($event.target.value)" :value="stdDepartureTime">
+                                        <input @keyup="timeoutedSave()" @click="timeoutedSave()" type="time" @input="setStdDepartureTime($event.target.value)" :value="stdDepartureTime">
                                     </label>
                                 </td>
                             </tr>
@@ -94,7 +94,7 @@
                                 <td>Generel information</td>
                                 <td>
                                     <label>
-                                        <textarea @input="setStdInformation($event.target.value)" :value="stdInformation"></textarea>
+                                        <textarea @keyup="timeoutedSave()" @input="setStdInformation($event.target.value)" :value="stdInformation"></textarea>
                                     </label>
                                 </td>
                             </tr>
@@ -123,11 +123,6 @@
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' }
             ]
         },
-        data() {
-            return {
-
-            }
-        },
         methods: {
             ...mapMutations({
                 toggleShowOrgType: 'showOrgType',
@@ -139,8 +134,12 @@
                 toggleShowDepartureTime: 'showDepartureTime',
                 setStdArrivalTime: 'stdArrivalTime',
                 setStdDepartureTime: 'stdDepartureTime',
-                setStdInformation: 'stdInformation'
+                setStdInformation: 'stdInformation',
+                setFormState: 'setFormState'
             }),
+            async timeoutedSave() {
+                this.$store.dispatch('timeoutFormConfigSave', this.$store.state.formConfig);
+            },
             async save(){
                 this.$store.dispatch('instantSaveFormConfig', this.$store.state.formConfig);
             }
@@ -159,11 +158,6 @@
                 'stdDepartureTime',
                 'stdInformation'
             ]),
-        },
-        mounted() {
-            this.$store.subscribe((mutation, state) => {
-                this.$store.dispatch('timeoutFormConfigSave', state.formConfig);
-            });
         },
         components: { InformationHeader, FormPreview, StateStatusIndicator }
     }

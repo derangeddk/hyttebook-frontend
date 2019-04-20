@@ -5,18 +5,15 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            saveStatus: "saved",
-            lastSaved: "",
-        }
-    },
-}
+import { mapGetters } from 'vuex';
 
-function getTimeStamp() {
-    let timeNow = new Date(Date.now());
-    return timeNow.toLocaleTimeString('da-DK');
+export default {
+    computed: {
+        ...mapGetters({
+            saveStatus: 'formState'
+        })
+    },
+
 }
 </script>
 

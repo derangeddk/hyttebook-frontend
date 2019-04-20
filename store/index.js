@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const state = () => ({
     timer: 0,
-    formState: '',
+    formState: "",
     formConfig: {
         showOrgType: false,
         showBankDetails: false,
@@ -59,6 +59,9 @@ const getters = {
     },
     stdInformation: state => {
         return state.formConfig.stdInformation;
+    },
+    formState: state => {
+        return state.formState;
     }
 }
 
@@ -104,6 +107,9 @@ const mutations = {
     },
     stdInformation: (state, text) => {
         state.formConfig.stdInformation = text;
+    },
+    setFormState: (state, status) => {
+        state.formState = status;
     }
 }
 
@@ -111,11 +117,19 @@ const actions = {
     timeoutFormConfigSave: async (context, payload) => {
         clearTimeout(state.timer);
         state.timer = setTimeout(() => {
-            saveForm(payload);
+            try {
+                saveForm(payload, context);
+            } catch(e) {
+                console.log(e);
+            }
         }, 600);
     },
     instantSaveFormConfig: async (context, payload) => {
-        saveForm(payload);
+        try {
+            saveForm(payload, context);
+        } catch(e) {
+            console.log(e);
+        }
     }
 
 }
@@ -127,15 +141,25 @@ export default {
     actions
 }
 
-async function saveForm(payload) {
+async function saveForm(payload, context) {
     let headers = {
         'Content-type': 'application/json'
     }
 
+    context.commit("setFormState", "saving");
     try {
         await axios.post("http://localhost:4752/forms", payload, { headers });
     } catch(error) {
         console.error("failed to create form: ", error);
         return;
     }
+
+    //The timeout is there to ensure that the user has a chance to see the "saving" message.
+    //It will hopefully build up the users trust in the autosave functionality.
+    //The timeout should probably be removed when the site goes live
+    setTimeout(() => {
+        context.commit("setFormState", "saved");
+    }, 800);
+
+
 }
