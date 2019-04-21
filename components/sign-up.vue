@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="signUp();" class="sign-up-container">
         <labelled-input name="first-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
-        <labelled-input name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
-        <labelled-input name="email" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input :errorMessage="duplicateUsername" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
+        <labelled-input :errorMessage="duplicateEmail" name="email" type="email" label="Email" v-model="email"></labelled-input>
         <labelled-input name="password" type="password" label="Password" v-model="password"></labelled-input>
         <primary-button type="submit">Registrer</primary-button>
 
@@ -25,7 +25,9 @@ export default {
             fullName: "",
             username: "",
             email: "",
-            password: ""
+            password: "",
+            duplicateEmail: "",
+            duplicateUsername: ""
         }
     },
     methods: {
@@ -33,6 +35,8 @@ export default {
             'setUsername',
         ]),
         signUp: async function () {
+            this.duplicateEmail = "";
+            this.duplicateUsername = "";
             let payload = {
                 fullName: this.fullName,
                 username: this.username,
@@ -48,13 +52,21 @@ export default {
             try {
                 response = await axios.post('http://localhost:4752/users', payload, { headers });
             } catch(error) {
+                if(error.response.data.message === "A user with that username already exists") {
+                    this.duplicateUsername = "er allerede i brug"
+                    return;
+                }
+                if(error.response.data.message === "A user with that email already exists") {
+                    this.duplicateEmail = "er allerede i brug"
+                    return;
+                }
                 console.error("failed to register user: ", error);
                 return;
             }
 
             this.setUsername(this.username);
             this.$router.push("/form-configuration");
-        }
+        },
     },
     components: { LabelledInput, PrimaryButton, SecondaryButton }
 }
