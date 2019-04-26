@@ -83,29 +83,15 @@ export default {
             this.$router.push("/form-configuration");
         },
         fieldsAreBlank: function() {
-            // let someFieldsAreEmpty;
+            if(this.fullName && this.username && this.email && this.password) {
+                return false;
+            }
 
-            // if(this.username == null || this.username == "") {
-            //     this.usernameError = "feltet må ikke være tomt";
-            //     someFieldsAreEmpty = true;
-            // }
-            // if(!this.fullName) {
-            //     this.fullNameError = "feltet må ikke være tomt";
-            //     someFieldsAreEmpty = true;
-            // }
-            // if(!this.email) {
-            //     this.emailError = "feltet skal have en email";
-            //     someFieldsAreEmpty = true;
-            // }
-            // if(!this.password) {
-            //     this.passwordError = "feltet må ikke være tomt";
-            //     someFieldsAreEmpty = true;
-            // }
-            // return someFieldsAreEmpty ? true : false;
-            this.checkFullNameValidity();
-            this.checkUsernameValidity();
             this.checkEmailValidity();
+            this.checkUsernameValidity();
+            this.checkFullNameValidity();
             this.checkPasswordValidity();
+            return true;
         },
         checkFullNameValidity: function() {
             if(this.fullName !== "" && this.fullName !== null) {
@@ -123,7 +109,7 @@ export default {
             if(this.email !== "" && this.email !== null) {
                 return this.emailError = "";
             }
-            return this.emailError = "feltet skal have en email";
+            return this.emailError = "feltet må ikke være tomt";
         },
         checkPasswordValidity: function() {
             const regEx = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
