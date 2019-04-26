@@ -106,10 +106,14 @@ export default {
             return this.usernameError = "feltet må ikke være tomt";
         },
         checkEmailValidity: function() {
-            if(this.email !== "" && this.email !== null) {
+            const regEx = /^.+@.+$/;
+            if(regEx.test(this.email)) {
                 return this.emailError = "";
             }
-            return this.emailError = "feltet må ikke være tomt";
+            if(!regEx.test(this.email) && this.email !== "") {
+                return this.emailError = "skal indeholde et @";
+            }
+            return this.emailError = "feltet skal have en email";
         },
         checkPasswordValidity: function() {
             const regEx = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
