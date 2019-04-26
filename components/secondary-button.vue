@@ -10,7 +10,7 @@
     border: 1px solid lighten(#3C6E71, 20%);
     color: lighten(#3C6E71, 20%);
     background-color: transparent;
-    width: 200px;
+    width: 250px;
     padding: 10px;
     margin-top: 60px;
     transition: border 0.4s, color 0.4s;

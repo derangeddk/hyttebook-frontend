@@ -17,7 +17,7 @@ export default {
     color:black;
     padding: 20px;
     margin: 0.9em 0;
-    width: 200px;
+    width: 250px;
     border: none;
     font-size: 1em;
     font-family: "Kanit";
