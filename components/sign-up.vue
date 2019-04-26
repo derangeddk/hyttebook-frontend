@@ -1,9 +1,16 @@
 <template>
     <form @submit.prevent="signUp();" class="sign-up-container">
-        <labelled-input name="first-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
-        <labelled-input :errorMessage="duplicateUsername" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
-        <labelled-input :errorMessage="duplicateEmail" name="email" type="email" label="Email" v-model="email"></labelled-input>
-        <labelled-input name="password" type="password" label="Password" v-model="password"></labelled-input>
+        <labelled-input @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
+        <labelled-input @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
+        <labelled-input @input="checkEmailValidity()" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input @input="checkPasswordValidity()" @change="checkPasswordValidity()" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input>
+        <div>Krav til password:
+            <ul>
+                <li>min. 4 karakterer</li>
+                <li>mindst et tal</li>
+                <li>mindst et bogstav</li>
+            </ul>
+        </div>
         <primary-button type="submit">Registrer</primary-button>
 
         <secondary-button @click="$emit('requestLogin')">Gå til login</secondary-button>
@@ -26,8 +33,10 @@ export default {
             username: "",
             email: "",
             password: "",
-            duplicateEmail: "",
-            duplicateUsername: ""
+            emailError: "",
+            usernameError: "",
+            fullNameError: "",
+            passwordError: ""
         }
     },
     methods: {
@@ -35,8 +44,13 @@ export default {
             'setUsername',
         ]),
         signUp: async function () {
-            this.duplicateEmail = "";
-            this.duplicateUsername = "";
+            if(this.fieldsAreBlank()) {
+                return;
+            }
+
+
+            this.emailError = "";
+            this.usernameError = "";
             let payload = {
                 fullName: this.fullName,
                 username: this.username,
@@ -53,19 +67,71 @@ export default {
                 response = await axios.post('http://localhost:4752/users', payload, { headers });
             } catch(error) {
                 if(error.response.data.message === "A user with that username already exists") {
-                    this.duplicateUsername = "er allerede i brug"
+                    this.usernameError = "er allerede i brug";
                     return;
                 }
                 if(error.response.data.message === "A user with that email already exists") {
-                    this.duplicateEmail = "er allerede i brug"
+                    this.emailError = "er allerede i brug";
                     return;
                 }
-                console.error("failed to register user: ", error);
+                if(error.response.data.errorCount > 0) {
+                    //TODO: return message to the right indputfield.
+                }
                 return;
             }
-
             this.setUsername(this.username);
             this.$router.push("/form-configuration");
+        },
+        fieldsAreBlank: function() {
+            // let someFieldsAreEmpty;
+
+            // if(this.username == null || this.username == "") {
+            //     this.usernameError = "feltet må ikke være tomt";
+            //     someFieldsAreEmpty = true;
+            // }
+            // if(!this.fullName) {
+            //     this.fullNameError = "feltet må ikke være tomt";
+            //     someFieldsAreEmpty = true;
+            // }
+            // if(!this.email) {
+            //     this.emailError = "feltet skal have en email";
+            //     someFieldsAreEmpty = true;
+            // }
+            // if(!this.password) {
+            //     this.passwordError = "feltet må ikke være tomt";
+            //     someFieldsAreEmpty = true;
+            // }
+            // return someFieldsAreEmpty ? true : false;
+            this.checkFullNameValidity();
+            this.checkUsernameValidity();
+            this.checkEmailValidity();
+            this.checkPasswordValidity();
+        },
+        checkFullNameValidity: function() {
+            if(this.fullName !== "" && this.fullName !== null) {
+                return this.fullNameError = "";
+            }
+            return this.fullNameError = "feltet må ikke være tomt";
+        },
+        checkUsernameValidity: function() {
+            if(this.username !== "" && this.username !== null) {
+                return this.usernameError = "";
+            }
+            return this.usernameError = "feltet må ikke være tomt";
+        },
+        checkEmailValidity: function() {
+            if(this.email !== "" && this.email !== null) {
+                return this.emailError = "";
+            }
+            return this.emailError = "feltet skal have en email";
+        },
+        checkPasswordValidity: function() {
+            const regEx = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
+            if(regEx.test(this.password)) {
+                return this.passwordError = ""
+            } else {
+                return this.passwordError = "krav ikke overholdt";
+            }
         },
     },
     components: { LabelledInput, PrimaryButton, SecondaryButton }

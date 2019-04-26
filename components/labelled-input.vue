@@ -6,7 +6,7 @@
                 {{ errorMessage }}
             </span>
         </span>
-        <input :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)" required>
+        <input :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)" @change="$emit('change')">
     </label>
 </template>
 
