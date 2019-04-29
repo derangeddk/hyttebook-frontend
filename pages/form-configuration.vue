@@ -6,7 +6,8 @@
                 <state-status-indicator></state-status-indicator>
                 <div class="main-header">
                     <div class="page-header">
-                        <h1>Formular</h1>
+                        <h1>Leje formular</h1>
+                        <h2>Her konfigureres leje forspørgsel på din hytte</h2>
                     </div>
                 </div>
                 <section class="form-and-preview">
