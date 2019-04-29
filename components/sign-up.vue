@@ -1,9 +1,9 @@
 <template>
     <form @submit.prevent="signUp();" class="sign-up-container">
-        <labelled-input @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
-        <labelled-input @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
-        <labelled-input @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input>
-        <labelled-input @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input>
+        <labelled-input-with-feedback @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input-with-feedback>
+        <labelled-input-with-feedback @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input-with-feedback>
+        <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input-with-feedback>
+        <labelled-input-with-feedback @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input-with-feedback>
         <div>Krav til password:
             <ul>
                 <li>min. 4 karakterer</li>
@@ -20,7 +20,7 @@
 
 <script>
 import axios from 'axios';
-import LabelledInput from '~/components/labelled-input';
+import LabelledInputWithFeedback from '~/components/labelled-input-with-feedback';
 import PrimaryButton from '~/components/primary-button';
 import SecondaryButton from '~/components/secondary-button';
 import { mapMutations } from 'vuex';
@@ -149,7 +149,7 @@ export default {
             }
         },
     },
-    components: { LabelledInput, PrimaryButton, SecondaryButton }
+    components: { LabelledInputWithFeedback, PrimaryButton, SecondaryButton }
 }
 </script>
 

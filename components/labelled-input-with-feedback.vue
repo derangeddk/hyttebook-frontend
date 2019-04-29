@@ -9,12 +9,20 @@
                 {{ guidanceMessage }}
             </span>
         </span>
-        <input :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)" @change="$emit('change')">
+        <input v-bind:class="{correct: inputCorrectness}" :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)" @change="$emit('change')">
     </label>
 </template>
 
 <script>
 export default {
+    computed: {
+        inputCorrectness: function() {
+            if(this.value !== "" && !this.errorMessage && !this.guidanceMessage) {
+                return true;
+            }
+            return false;
+        }
+    },
     props: [ "name", "type", "label", "value", "errorMessage", "guidanceMessage" ],
 }
 </script>
@@ -51,6 +59,10 @@ export default {
             font-family: "Kanit";
             padding: 3px 4px;
             font-size: 1.2em;
+
+            &.correct {
+                border: 1px solid rgb(0, 179, 0);
+            }
         }
     }
 
