@@ -2,8 +2,8 @@
     <form @submit.prevent="signUp();" class="sign-up-container">
         <labelled-input @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input>
         <labelled-input @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input>
-        <labelled-input @input="checkEmailValidity()" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input>
-        <labelled-input @input="checkPasswordValidity()" @change="checkPasswordValidity()" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input>
+        <labelled-input @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input>
         <div>Krav til password:
             <ul>
                 <li>min. 4 karakterer</li>
@@ -34,9 +34,11 @@ export default {
             email: "",
             password: "",
             emailError: "",
+            emailGuidance: "",
             usernameError: "",
             fullNameError: "",
-            passwordError: ""
+            passwordError: "",
+            passwordGuidance: ""
         }
     },
     methods: {
@@ -47,7 +49,6 @@ export default {
             if(this.fieldsAreBlank()) {
                 return;
             }
-
 
             this.emailError = "";
             this.usernameError = "";
@@ -107,20 +108,44 @@ export default {
         },
         checkEmailValidity: function() {
             const regEx = /^.+@.+$/;
-            if(regEx.test(this.email)) {
-                return this.emailError = "";
+            if(!regEx.test(this.email) && this.emailError !== "") {
+                this.emailError = "";
+                return;
+            }
+            if(regEx.test(this.email) && this.emailGuidance !== "") {
+                this.emailGuidance = "";
+                return;
+            }
+            if(this.email === "" || this.email === null) {
+                this.emailGuidance = "";
+                this.emailError = "feltet skal have en email";
+                return;
             }
             if(!regEx.test(this.email) && this.email !== "") {
-                return this.emailError = "skal indeholde et @";
+                this.emailError == "";
+                this.emailGuidance = "skal indeholde et @";
+                return;
             }
-            return this.emailError = "feltet skal have en email";
         },
         checkPasswordValidity: function() {
             const regEx = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
-            if(regEx.test(this.password)) {
-                return this.passwordError = ""
-            } else {
-                return this.passwordError = "krav ikke overholdt";
+            if(regEx.test(this.password) && this.passwordError !== "") {
+                this.passwordError = ""
+                return;
+            }
+            if(regEx.test(this.password) && this.passwordGuidance !== "") {
+                this.passwordGuidance = "";
+                return;
+            }
+            if(this.password == "" || this.password == null) {
+                this.passwordGuidance = "";
+                this.passwordError = "feltet må ikke være tomt";
+                return;
+            }
+            if(!regEx.test(this.password) && this.password !== "") {
+                this.passwordError = "";
+                this.passwordGuidance = "krav endnu ikke overholdt";
+                return;
             }
         },
     },
