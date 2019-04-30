@@ -3,7 +3,7 @@
         <div class="header-wrapper">
             <div class="site-name">
                 <h1>
-                    Hytte Index
+                    HUAS
                 </h1>
             </div>
             <div class="logged-in-user-information">
@@ -15,24 +15,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
     export default {
         data() {
             return {
-                username: "",
-                hutName: "",
             }
         },
-        async mounted() {
-            this.getUsername();
-            this.getHutname();
-        },
-        methods: {
-            getUsername: function() {
-                return this.username = process.env.username;
-            },
-            getHutname: function() {
-                return this.hutName = process.env.hutName;
-            },
+        computed: {
+            ...mapGetters([
+                'hutName',
+                'username'
+            ]),
         }
     }
 </script>
@@ -41,9 +35,10 @@
     nav {
         width: 100%;
         height: 60px;
-        background-color: darken(#3C6E71, 5%);
+        background-color: #3C6E71;
+        background-image: linear-gradient(300deg, lighten(#3C6E71, 17%) 60%, lighten(#3C6E71, 22%));
         text-align: center;
-        color: rgb(230,230,230);
+        color: black;
     }
 
     .header-wrapper {
@@ -63,6 +58,7 @@
         font-size: 2.3em;
         padding: 0.2em 0.5em;
         margin: 0;
+        font-weight: 500;
     }
 
     .logged-in-user-information {
@@ -71,17 +67,17 @@
         justify-content:flex-start;
         align-items: center;
         line-height: 100%;
-    }
 
-    .hutname {
-        padding: 0 1.2em;
-        font-weight: 300;
-        font-size: 0.95em;
-    }
+        .hutname {
+            padding: 0 1.2em;
+            font-weight: 300;
+            font-size: 0.95em;
+        }
 
-    .username {
-        padding: 0 1.2em;
-        font-size: 1.1em;
+        .username {
+            padding: 0 1.2em;
+            font-size: 1.1em;
+        }
     }
 </style>
 

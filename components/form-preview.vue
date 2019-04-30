@@ -16,7 +16,6 @@
 
                     </div>
                 </div>
-                <!--h2>Udfyld venligst alle felter</h2-->
             </div>
 
             <div class="form-field-column-container">
@@ -125,20 +124,9 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
     export default {
-        props: [
-            "hutName",
-            "showOrgType",
-            "showBankDetails",
-            "showEan",
-            "showCleaningToggle",
-            "defaultCleaningIncluded",
-            "showArrivalTime",
-            "showDepartureTime",
-            "stdArrivalTime",
-            "stdDepartureTime",
-            "stdInformation"
-        ],
         data() {
             return {
                 organizationalTypes: [
@@ -181,12 +169,29 @@
             },
             prettyStdInformation: function() {
                 return this.stdInformation.trim().replace(/\n/g, "<br>")
-            }
+            },
+            ...mapGetters([
+                'hutName',
+                'showOrgType',
+                'showBankDetails',
+                'showEan',
+                'showCleaningToggle',
+                'defaultCleaningIncluded',
+                'showArrivalTime',
+                'showDepartureTime',
+                'stdArrivalTime',
+                'stdDepartureTime',
+                'stdInformation'
+            ]),
         }
     }
 </script>
 
 <style lang="scss">
+
+    h1 {
+        text-align: center;
+    }
 
     .form-preview {
         margin: 20px;

@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Kanit:100,300,400,400i,500,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,400i,500,700');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    background: #FFFFFF;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 200;
+}
+

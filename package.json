@@ -18,10 +18,14 @@
   },
   "homepage": "https://github.com/derangeddk/hyttebook-frontend#readme",
   "dependencies": {
-    "nuxt": "^2.2.0"
+    "axios": "^0.18.0",
+    "dgram": "^1.0.1",
+    "fs": "0.0.1-security",
+    "net": "^1.0.2",
+    "nuxt": "^2.6.2"
   },
   "devDependencies": {
-    "node-sass": "^4.10.0",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0"
   }
 }
