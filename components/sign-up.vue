@@ -81,7 +81,7 @@ export default {
                 return;
             }
             this.setUsername(this.username);
-            this.$router.push("/form-configuration");
+            this.$router.push("/hut-management");
         },
         fieldsAreBlank: function() {
             if(this.fullName && this.username && this.email && this.password) {

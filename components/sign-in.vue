@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="login();" class="sign-in-container">
-        <labelled-input name="email" type="email" label="Email" v-model="email"></labelled-input>
-        <labelled-input name="password" type="password" label="Password" v-model="password"></labelled-input>
+        <labelled-input name="email" :errorMessage="emailError" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input name="password" :errorMessage="passwordError" type="password" label="Password" v-model="password"></labelled-input>
         <primary-button type="submit">Login</primary-button>
 
         <secondary-button @click="$emit('requestSignUp')">Gå til registrering</secondary-button>
@@ -20,7 +20,9 @@ export default {
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
+            emailError: "",
+            passwordError: ""
         }
     },
     methods: {
@@ -39,8 +41,14 @@ export default {
             let response;
             try {
                 response = await axios.post('http://localhost:4752/login', payload, { headers });
-            } catch(err) {
-                console.error("couldn't login: ", err);
+            } catch(error) {
+                if(error.response.data.code == "NON-EXISTENT") {
+                    this.emailError = error.response.data.message;
+                }
+                if(error.response.data.code == "INCORRECT") {
+                    this.passwordError = error.response.data.message;
+                }
+                console.error("couldn't login: ", error);
                 return;
             }
 
@@ -48,7 +56,7 @@ export default {
             console.log(user);
 
             this.setUser(user)
-            this.$router.push("/form-configuration");
+            this.$router.push("/hut-management");
         }
     },
     components: { LabelledInput, PrimaryButton, SecondaryButton }
