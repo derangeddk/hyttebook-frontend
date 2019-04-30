@@ -10,10 +10,10 @@
 
         <form @submit.prevent="registerHut();" class="registration-container">
             <labelled-input name="hut-name" type="text" label="Hytte navn" v-model="hutName"></labelled-input>
-            <labelled-input name="street" type="text" label="Vej navn" v-model="street"></labelled-input>
-            <labelled-input name="streetNumber" type="text" label="Vej nummer" v-model="streetNumber"></labelled-input>
+            <labelled-input name="street" type="text" label="Vej" v-model="street"></labelled-input>
+            <labelled-input name="streetNumber" type="text" label="Nummer" v-model="streetNumber"></labelled-input>
+            <labelled-input @input="findCityFromZip()" name="zip-code" type="number" label="Postnummer" v-model="zipCode"></labelled-input>
             <labelled-input name="city" type="text" label="By" v-model="city"></labelled-input>
-            <labelled-input name="zip-code" type="number" label="Postnummer" v-model="zipCode"></labelled-input>
             <labelled-input name="email" type="email" label="Kontakt email" v-model="email"></labelled-input>
             <labelled-input name="phone" type="tel" label="Kontakt nummer" v-model="phone"></labelled-input>
             <primary-button type="submit">Registrer</primary-button>
@@ -39,6 +39,13 @@
             }
         },
         methods: {
+            async findCityFromZip() {
+                let timer = 0;
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                   this.city = requestCity(this.zipCode);
+                },600);
+            },
             async registerHut() {
                 let payload = {
                     hutName: this.hutName,
@@ -65,6 +72,24 @@
             }
         },
         components: { LabelledInput, PrimaryButton }
+    }
+
+    async function requestCity(zip) {
+        let headers = {
+                    "content-type": "application/json"
+                }
+
+        let response;
+        try {
+            response = await axios.get('http//dawa.aws.dk/postnumre/2500');
+        } catch (error) {
+            console.log("Couldn't fetch city name: ", error);
+        }
+        console.log(response);
+
+        if(!error) {
+            response.data.navn;
+        }
     }
 </script>
 
