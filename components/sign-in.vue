@@ -43,10 +43,10 @@ export default {
                 response = await axios.post('http://localhost:4752/login', payload, { headers });
             } catch(error) {
                 if(error.response.data.code == "NON-EXISTENT") {
-                    this.emailError = error.response.data.message;
+                    this.emailError = "kunne ikke findes";
                 }
                 if(error.response.data.code == "INCORRECT") {
-                    this.passwordError = error.response.data.message;
+                    this.passwordError = "passer ikke til emailen";
                 }
                 console.error("couldn't login: ", error);
                 return;
