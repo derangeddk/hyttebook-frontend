@@ -2,9 +2,9 @@
     <div class="hut-registration-container">
 
         <div class="page-header">
-            <h1>Registrer hytte</h1>
-            <h3>Her kan du oplyse noget basis information</h3>
-            <h3>om hytten du udlejer. Informationen vil blive brugt</h3>
+            <h1>Registrering af hytte</h1>
+            <h3>Vi har behov for noget information</h3>
+            <h3>om hytten du udlejer. Informationen vil bl.a. blive brugt</h3>
             <h3>i mails som sendes til lejere</h3>
         </div>
 
@@ -42,8 +42,8 @@
             async findCityFromZip() {
                 let timer = 0;
                 clearTimeout(timer);
-                timer = setTimeout(() => {
-                   this.city = requestCity(this.zipCode);
+                timer = setTimeout(async () => {
+                   this.city = await requestCity(this.zipCode);
                 },600);
             },
             async registerHut() {
@@ -81,15 +81,12 @@
 
         let response;
         try {
-            response = await axios.get('http//dawa.aws.dk/postnumre/2500');
+            response = await axios.get(`http://dawa.aws.dk/postnumre/${zip}`,headers);
         } catch (error) {
             console.log("Couldn't fetch city name: ", error);
         }
-        console.log(response);
 
-        if(!error) {
-            response.data.navn;
-        }
+        return response.data.navn;
     }
 </script>
 
