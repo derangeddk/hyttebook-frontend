@@ -4,6 +4,7 @@
         <labelled-input-with-feedback @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input-with-feedback>
+        <labelled-input-with-feedback @input="checkPasswordMatches()" @change="checkPasswordMatches()" :guidanceMessage="repeatedPasswordGuidance" :errorMessage="repeatedPasswordError" name="repeatedPassword" type="password" label="Gentag password" v-model="repeatedPassword"></labelled-input-with-feedback>
         <div>Krav til password:
             <ul>
                 <li>min. 4 karakterer</li>
@@ -33,12 +34,15 @@ export default {
             username: "",
             email: "",
             password: "",
+            repeatedPassword: "",
             emailError: "",
             emailGuidance: "",
             usernameError: "",
             fullNameError: "",
             passwordError: "",
-            passwordGuidance: ""
+            passwordGuidance: "",
+            repeatedPasswordGuidance: "",
+            repeatedPasswordError: ""
         }
     },
     methods: {
@@ -84,7 +88,7 @@ export default {
             this.$router.push("/hut-management");
         },
         fieldsAreBlank: function() {
-            if(this.fullName && this.username && this.email && this.password) {
+            if(this.fullName && this.username && this.email && this.password && this.password == this.repeatedPassword) {
                 return false;
             }
 
@@ -92,6 +96,7 @@ export default {
             this.checkUsernameValidity();
             this.checkFullNameValidity();
             this.checkPasswordValidity();
+            this.checkPasswordMatches();
             return true;
         },
         checkFullNameValidity: function() {
@@ -148,6 +153,21 @@ export default {
                 return;
             }
         },
+        checkPasswordMatches: function() {
+            if(this.repeatedPassword == "" || this.repeatedPassword == null) {
+                this.repeatedPasswordGuidance = "";
+                this.repeatedPasswordError = "feltet må ikke være tomt";
+                return;
+            }
+            if(this.password !== this.repeatedPassword) {
+                this.repeatedPasswordGuidance = "matcher ikke endnu";
+                this.repeatedPasswordError = "";
+                return;
+            }
+            this.repeatedPasswordGuidance = "";
+            this.repeatedPasswordError = "";
+            return;
+        }
     },
     components: { LabelledInputWithFeedback, PrimaryButton, SecondaryButton }
 }
