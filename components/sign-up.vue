@@ -71,16 +71,13 @@ export default {
             try {
                 response = await axios.post('http://localhost:4752/users', payload, { headers });
             } catch(error) {
-                if(error.response.data.message === "A user with that username already exists") {
-                    this.usernameError = "er allerede i brug";
+                let { errorCount, username, fullName, email, password } = error.response.data;
+                if(errorCount > 0) {
+                    this.fullNameError = fullName[0] ? fullName[0].da : "";
+                    this.usernameError = username[0] ? username[0].da : "";
+                    this.emailError = email[0] ? email[0].da : "";
+                    this.passwordError = password[0] ? password[0].da : "";
                     return;
-                }
-                if(error.response.data.message === "A user with that email already exists") {
-                    this.emailError = "er allerede i brug";
-                    return;
-                }
-                if(error.response.data.errorCount > 0) {
-                    //TODO: return message to the right indputfield.
                 }
                 return;
             }
