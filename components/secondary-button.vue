@@ -20,5 +20,9 @@
         border: 1px solid darken(#3C6E71, 5%);
         color: darken(#3C6E71, 5%);
     }
+
+    &:focus {
+        outline: none;
+    }
 }
 </style>
