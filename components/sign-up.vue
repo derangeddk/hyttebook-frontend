@@ -2,7 +2,7 @@
     <form @submit.prevent="signUp();" class="sign-up-container">
         <labelled-input-with-feedback @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input-with-feedback>
-        <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input-with-feedback>
+        <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="text" label="Email" v-model="email"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordMatches()" @change="checkPasswordMatches()" :guidanceMessage="repeatedPasswordGuidance" :errorMessage="repeatedPasswordError" name="repeatedPassword" type="password" label="Gentag password" v-model="repeatedPassword"></labelled-input-with-feedback>
 
@@ -70,7 +70,9 @@ export default {
                     this.fullNameError = fullName[0] ? fullName[0].da : "";
                     this.usernameError = username[0] ? username[0].da : "";
                     this.emailError = email[0] ? email[0].da : "";
+                    this.emailGuidance = "";
                     this.passwordError = password[0] ? password[0].da : "";
+                    this.passwordGuidance = "";
                     return;
                 }
                 return;

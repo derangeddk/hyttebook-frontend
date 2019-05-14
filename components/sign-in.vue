@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="login();" class="sign-in-container">
-        <labelled-input name="email" @input="removeEmailErrorMessage()" :errorMessage="emailError" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input name="email" @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" type="text" label="Email" v-model="email"></labelled-input>
         <labelled-input name="password" @input="removePasswordErrorMessage(passwordError)" :errorMessage="passwordError" type="password" label="Password" v-model="password"></labelled-input>
         <primary-button type="submit">Login</primary-button>
 
@@ -20,8 +20,9 @@ export default {
     data() {
         return {
             email: "",
-            password: "",
+            emailGuidance: "",
             emailError: "",
+            password: "",
             passwordError: ""
         }
     },
@@ -58,9 +59,27 @@ export default {
             this.setUser(user)
             this.$router.push("/hut-management");
         },
-        removeEmailErrorMessage() {
-            if(this.emailError != "" && this.emailError != null) {
+        checkEmailValidity: function() {
+            const regEx = /^.+@.+$/;
+            if(!regEx.test(this.email) && this.emailError !== "") {
                 this.emailError = "";
+                return;
+            }
+            if(regEx.test(this.email) && this.emailError !== "") {
+                this.emailError = "";
+            }
+            if(regEx.test(this.email) && this.emailGuidance !== "") {
+                this.emailGuidance = "";
+                return;
+            }
+            if(this.email === "" || this.email === null) {
+                this.emailGuidance = "";
+                this.emailError = "feltet skal have en email";
+                return;
+            }
+            if(!regEx.test(this.email) && this.email !== "") {
+                this.emailError == "";
+                this.emailGuidance = "skal indeholde et @";
                 return;
             }
         },
