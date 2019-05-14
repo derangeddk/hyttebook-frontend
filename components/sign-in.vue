@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="login();" class="sign-in-container">
-        <labelled-input name="email" :errorMessage="emailError" type="email" label="Email" v-model="email"></labelled-input>
-        <labelled-input name="password" :errorMessage="passwordError" type="password" label="Password" v-model="password"></labelled-input>
+        <labelled-input name="email" @input="removeEmailErrorMessage()" :errorMessage="emailError" type="email" label="Email" v-model="email"></labelled-input>
+        <labelled-input name="password" @input="removePasswordErrorMessage(passwordError)" :errorMessage="passwordError" type="password" label="Password" v-model="password"></labelled-input>
         <primary-button type="submit">Login</primary-button>
 
         <secondary-button @click="$emit('requestSignUp')">Gå til registrering</secondary-button>
@@ -57,6 +57,18 @@ export default {
 
             this.setUser(user)
             this.$router.push("/hut-management");
+        },
+        removeEmailErrorMessage() {
+            if(this.emailError != "" && this.emailError != null) {
+                this.emailError = "";
+                return;
+            }
+        },
+        removePasswordErrorMessage() {
+            if(this.passwordError != "" && this.passwordError != null) {
+                this.passwordError = "";
+                return;
+            }
         }
     },
     components: { LabelledInput, PrimaryButton, SecondaryButton }
