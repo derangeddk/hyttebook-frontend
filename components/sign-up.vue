@@ -5,13 +5,7 @@
         <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordMatches()" @change="checkPasswordMatches()" :guidanceMessage="repeatedPasswordGuidance" :errorMessage="repeatedPasswordError" name="repeatedPassword" type="password" label="Gentag password" v-model="repeatedPassword"></labelled-input-with-feedback>
-        <div>Krav til password:
-            <ul>
-                <li>min. 4 karakterer</li>
-                <li>mindst et tal</li>
-                <li>mindst et bogstav</li>
-            </ul>
-        </div>
+
         <primary-button type="submit">Registrer</primary-button>
 
         <secondary-button @click="$emit('requestLogin')">Gå til login</secondary-button>
@@ -130,25 +124,13 @@ export default {
             }
         },
         checkPasswordValidity: function() {
-            const regEx = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
-            if(regEx.test(this.password) && this.passwordError !== "") {
-                this.passwordError = ""
-                return;
-            }
-            if(regEx.test(this.password) && this.passwordGuidance !== "") {
-                this.passwordGuidance = "";
-                return;
-            }
             if(this.password == "" || this.password == null) {
-                this.passwordGuidance = "";
                 this.passwordError = "feltet må ikke være tomt";
                 return;
             }
-            if(!regEx.test(this.password) && this.password !== "") {
-                this.passwordError = "";
-                this.passwordGuidance = "krav endnu ikke overholdt";
-                return;
-            }
+            this.passwordGuidance = "";
+            this.passwordError = "";
+            return;
         },
         checkPasswordMatches: function() {
             if(this.repeatedPassword == "" || this.repeatedPassword == null) {
