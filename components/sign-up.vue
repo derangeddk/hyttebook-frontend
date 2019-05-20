@@ -2,16 +2,10 @@
     <form @submit.prevent="signUp();" class="sign-up-container">
         <labelled-input-with-feedback @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input-with-feedback>
-        <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="email" label="Email" v-model="email"></labelled-input-with-feedback>
+        <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="text" label="Email" v-model="email"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input-with-feedback>
         <labelled-input-with-feedback @input="checkPasswordMatches()" @change="checkPasswordMatches()" :guidanceMessage="repeatedPasswordGuidance" :errorMessage="repeatedPasswordError" name="repeatedPassword" type="password" label="Gentag password" v-model="repeatedPassword"></labelled-input-with-feedback>
-        <div>Krav til password:
-            <ul>
-                <li>min. 4 karakterer</li>
-                <li>mindst et tal</li>
-                <li>mindst et bogstav</li>
-            </ul>
-        </div>
+
         <primary-button type="submit">Registrer</primary-button>
 
         <secondary-button @click="$emit('requestLogin')">Gå til login</secondary-button>
@@ -71,16 +65,15 @@ export default {
             try {
                 response = await axios.post('http://localhost:4752/users', payload, { headers });
             } catch(error) {
-                if(error.response.data.message === "A user with that username already exists") {
-                    this.usernameError = "er allerede i brug";
+                let { errorCount, username, fullName, email, password } = error.response.data;
+                if(errorCount > 0) {
+                    this.fullNameError = fullName[0] ? fullName[0].da : "";
+                    this.usernameError = username[0] ? username[0].da : "";
+                    this.emailError = email[0] ? email[0].da : "";
+                    this.emailGuidance = "";
+                    this.passwordError = password[0] ? password[0].da : "";
+                    this.passwordGuidance = "";
                     return;
-                }
-                if(error.response.data.message === "A user with that email already exists") {
-                    this.emailError = "er allerede i brug";
-                    return;
-                }
-                if(error.response.data.errorCount > 0) {
-                    //TODO: return message to the right indputfield.
                 }
                 return;
             }
@@ -133,25 +126,13 @@ export default {
             }
         },
         checkPasswordValidity: function() {
-            const regEx = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
-            if(regEx.test(this.password) && this.passwordError !== "") {
-                this.passwordError = ""
-                return;
-            }
-            if(regEx.test(this.password) && this.passwordGuidance !== "") {
-                this.passwordGuidance = "";
-                return;
-            }
             if(this.password == "" || this.password == null) {
-                this.passwordGuidance = "";
                 this.passwordError = "feltet må ikke være tomt";
                 return;
             }
-            if(!regEx.test(this.password) && this.password !== "") {
-                this.passwordError = "";
-                this.passwordGuidance = "krav endnu ikke overholdt";
-                return;
-            }
+            this.passwordGuidance = "";
+            this.passwordError = "";
+            return;
         },
         checkPasswordMatches: function() {
             if(this.repeatedPassword == "" || this.repeatedPassword == null) {
