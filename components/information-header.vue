@@ -3,7 +3,7 @@
         <div class="header-wrapper">
             <div class="site-name">
                 <h1>
-                    HUAS
+                    <nuxt-link class="link" to="/">Hytte Index</nuxt-link>
                 </h1>
             </div>
             <div class="logged-in-user-information">
@@ -78,6 +78,11 @@ import { mapGetters } from 'vuex';
             padding: 0 1.2em;
             font-size: 1.1em;
         }
+    }
+
+    .link {
+        text-decoration: inherit;
+        color: black;
     }
 </style>
 
