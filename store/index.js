@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 const state = () => ({
-    timer: 0,
-    formState: "",
     formConfig: {
         showOrgType: false,
         showBankDetails: false,
@@ -60,17 +58,12 @@ const getters = {
     stdInformation: state => {
         return state.formConfig.stdInformation;
     },
-    formState: state => {
-        return state.formState;
-    }
 }
 
 const mutations = {
     setUser: (state, user) => {
         state.user.username = user.username;
-        state.user.hutName = user.hutName;
         state.user.email = user.email;
-        state.user.fullName = user.fullName;
     },
     setUsername: (state, username) => {
         state.user.username = username;
@@ -108,58 +101,10 @@ const mutations = {
     stdInformation: (state, text) => {
         state.formConfig.stdInformation = text;
     },
-    setFormState: (state, status) => {
-        state.formState = status;
-    }
-}
-
-const actions = {
-    timeoutFormConfigSave: async (context, payload) => {
-        clearTimeout(state.timer);
-        state.timer = setTimeout(() => {
-            try {
-                saveForm(payload, context);
-            } catch(e) {
-                console.log(e);
-            }
-        }, 600);
-    },
-    instantSaveFormConfig: async (context, payload) => {
-        try {
-            saveForm(payload, context);
-        } catch(e) {
-            console.log(e);
-        }
-    }
-
 }
 
 export default {
     state,
     getters,
-    mutations,
-    actions
-}
-
-async function saveForm(payload, context) {
-    let headers = {
-        'Content-type': 'application/json'
-    }
-
-    context.commit("setFormState", "saving");
-    try {
-        await axios.post("http://localhost:4752/forms", payload, { headers });
-    } catch(error) {
-        console.error("failed to create form: ", error);
-        return;
-    }
-
-    //The timeout is there to ensure that the user has a chance to see the "saving" message.
-    //It will hopefully build up the users trust in the autosave functionality.
-    //The timeout should probably be removed when the site goes live
-    setTimeout(() => {
-        context.commit("setFormState", "saved");
-    }, 800);
-
-
+    mutations
 }
