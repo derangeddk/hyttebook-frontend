@@ -23,10 +23,10 @@ const state = () => ({
 
 const getters = {
     hutName: state => {
-        return state.user.hutName;
+        if(state.user.hutName) return state.user.hutName;
     },
     username: state => {
-        return state.user.username;
+        if(state.user.username) return state.user.username;
     },
     showOrgType: state => {
         return state.formConfig.showOrgType;
