@@ -7,6 +7,7 @@
 <script>
 import InformationHeader from "~/components/information-header";
 export default {
-    components: { InformationHeader }
+    components: { InformationHeader },
+    middleware: "requireUser",
 }
 </script>

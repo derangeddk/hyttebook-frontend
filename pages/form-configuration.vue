@@ -165,7 +165,8 @@
                 'stdInformation'
             ]),
         },
-        components: { InformationHeader, FormPreview }
+        components: { InformationHeader, FormPreview },
+        middleware: "requireUser",
     }
 </script>
 
