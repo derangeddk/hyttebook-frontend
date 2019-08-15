@@ -61,6 +61,11 @@ const getters = {
 }
 
 const mutations = {
+    initialiseCachedUser: (state) => {
+        if(!process.server) {
+            state.user = JSON.parse(localStorage.getItem("user"));
+        }
+    },
     setUser: (state, user) => {
         state.user.username = user.username;
         state.user.email = user.email;
