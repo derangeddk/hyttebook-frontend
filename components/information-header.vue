@@ -36,7 +36,11 @@ import { mapGetters } from 'vuex';
         width: 100%;
         height: 60px;
         background-color: #3C6E71;
-        background-image: linear-gradient(300deg, lighten(#3C6E71, 17%) 60%, lighten(#3C6E71, 22%));
+        background-image: linear-gradient(
+                300deg,
+                lighten(#3C6E71, 17%) 60%,
+                lighten(#3C6E71, 22%)
+            );
         text-align: center;
         color: black;
     }

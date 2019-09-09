@@ -2,8 +2,13 @@
     <main>
         <information-header></information-header>
         <div class="hut-container">
-            <no-hut v-if="!registerHut && !hasHuts" @requestRegistration="registerHut = true"></no-hut>
-            <hut-registration v-if="registerHut"></hut-registration>
+            <no-hut
+                v-if="!registerHut && !hasHuts"
+                @requestRegistration="registerHut = true">
+            </no-hut>
+            <hut-registration
+                v-if="registerHut">
+            </hut-registration>
         </div>
     </main>
 </template>

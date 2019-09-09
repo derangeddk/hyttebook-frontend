@@ -4,8 +4,12 @@
         <h3>Du er nået til det punkt hvor du enten</h3>
         <h3>skal registrere en hytte eller forbinde dig til en hytte.</h3>
         <div class="button-container">
-            <primary-button type="submit" @click="$emit('requestRegistration')">Registrer Hytte</primary-button>
-            <primary-button type="submit" @click="$emit('requestAffiliation')">Forbind til hytte</primary-button>
+            <primary-button type="submit" @click="$emit('requestRegistration')">
+                Registrer Hytte
+            </primary-button>
+            <primary-button type="submit" @click="$emit('requestAffiliation')">
+                Forbind til hytte
+            </primary-button>
         </div>
     </div>
 </template>

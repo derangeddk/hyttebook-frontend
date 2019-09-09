@@ -9,14 +9,52 @@
         </div>
 
         <form @submit.prevent="registerHut();" class="registration-container">
-            <labelled-input name="hut-name" type="text" label="Hytte navn" v-model="hutName"></labelled-input>
-            <labelled-input name="street" type="text" label="Vejnavn og nummer" v-model="street"></labelled-input>
-            <labelled-input name="streetNumber" type="text" label="nummer" v-model="streetNumber"></labelled-input>
-            <labelled-input @input="findCityFromZip()" name="zip-code" type="number" label="Postnummer" v-model="zipCode"></labelled-input>
-            <labelled-input name="city" type="text" label="By" v-model="city"></labelled-input>
-            <labelled-input name="email" type="email" label="Kontakt email" v-model="email"></labelled-input>
-            <labelled-input name="phone" type="tel" label="Kontakt nummer" v-model="phone"></labelled-input>
-            <primary-button type="submit">Registrer</primary-button>
+            <labelled-input
+                name="hut-name"
+                type="text"
+                label="Hytte navn"
+                v-model="hutName">
+            </labelled-input>
+            <labelled-input
+                name="street"
+                type="text"
+                label="Vejnavn og nummer"
+                v-model="street">
+            </labelled-input>
+            <labelled-input
+                name="streetNumber"
+                type="text"
+                label="nummer"
+                v-model="streetNumber">
+            </labelled-input>
+            <labelled-input
+                @input="findCityFromZip()"
+                name="zip-code"
+                type="number"
+                label="Postnummer"
+                v-model="zipCode">
+            </labelled-input>
+            <labelled-input
+                name="city"
+                type="text"
+                label="By"
+                v-model="city">
+            </labelled-input>
+            <labelled-input
+                name="email"
+                type="email"
+                label="Kontakt email"
+                v-model="email">
+            </labelled-input>
+            <labelled-input
+                name="phone"
+                type="tel"
+                label="Kontakt nummer"
+                v-model="phone">
+            </labelled-input>
+            <primary-button type="submit">
+                Registrer
+            </primary-button>
         </form>
     </div>
 </template>
@@ -67,7 +105,11 @@
 
                 let response;
                 try {
-                    response = await axios.post('http://localhost:4752/huts', payload, { headers });
+                    response = await axios.post(
+                        'http://localhost:4752/huts',
+                        payload,
+                        { headers }
+                    );
                 } catch(error) {
                     console.error("Failed to register hut: ", error);
                     return;
