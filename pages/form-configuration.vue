@@ -3,7 +3,6 @@
         <information-header></information-header>
         <div class="main-content">
             <div class="rent-form-interface-container">
-                <state-status-indicator></state-status-indicator>
                 <div class="main-header">
                     <div class="page-header">
                         <h1>Leje formular</h1>
@@ -23,7 +22,7 @@
                                 <td>Vis "Organistions type"</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowOrgType" :checked="showOrgType">
+                                        <input type="checkbox" @change="toggleShowOrgType" :checked="showOrgType">
                                     </label>
                                 </td>
                             </tr>
@@ -31,7 +30,7 @@
                                 <td>Lad lejere indtaste bankoplysinger</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowBankDetails" :checked="showBankDetails">
+                                        <input type="checkbox" @change="toggleShowBankDetails" :checked="showBankDetails">
                                     </label>
                                 </td>
                             </tr>
@@ -39,7 +38,7 @@
                                 <td>Lad lejere indtaste EAN nummer</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowEan" :checked="showEan">
+                                        <input type="checkbox" @change="toggleShowEan" :checked="showEan">
                                     </label>
                                 </td>
                             </tr>
@@ -47,7 +46,7 @@
                                 <td>Vis "Rengøring"</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowCleaningToggle" :checked="showCleaningToggle">
+                                        <input type="checkbox" @change="toggleShowCleaningToggle" :checked="showCleaningToggle">
                                     </label>
                                 </td>
                             </tr>
@@ -55,7 +54,7 @@
                                 <td>Standardværdi for "Rengøring"</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleDefaultCleaningIncluded" :checked="defaultCleaningIncluded">
+                                        <input type="checkbox" @change="toggleDefaultCleaningIncluded" :checked="defaultCleaningIncluded">
                                     </label>
                                 </td>
                             </tr>
@@ -63,7 +62,7 @@
                                 <td>Vis "Ankomst tidspukt"</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowArrivalTime" :checked="showArrivalTime">
+                                        <input type="checkbox" @change="toggleShowArrivalTime" :checked="showArrivalTime">
                                     </label>
                                 </td>
                             </tr>
@@ -71,7 +70,7 @@
                                 <td>Standard ankomst tid</td>
                                 <td>
                                     <label>
-                                        <input @keyup="timeoutedSave()" @click="timeoutedSave()" type="time" @input="setStdArrivalTime($event.target.value)" :value="stdArrivalTime">
+                                        <input type="time" @input="setStdArrivalTime($event.target.value)" :value="stdArrivalTime">
                                     </label>
                                 </td>
                             </tr>
@@ -79,7 +78,7 @@
                                 <td>Vis "Afrejse tidspukt"</td>
                                 <td>
                                     <label>
-                                        <input @click="timeoutedSave()" type="checkbox" @change="toggleShowDepartureTime" :checked="showDepartureTime">
+                                        <input type="checkbox" @change="toggleShowDepartureTime" :checked="showDepartureTime">
                                     </label>
                                 </td>
                             </tr>
@@ -87,7 +86,7 @@
                                 <td>Standard afrejse tid</td>
                                 <td>
                                     <label>
-                                        <input @keyup="timeoutedSave()" @click="timeoutedSave()" type="time" @input="setStdDepartureTime($event.target.value)" :value="stdDepartureTime">
+                                        <input type="time" @input="setStdDepartureTime($event.target.value)" :value="stdDepartureTime">
                                     </label>
                                 </td>
                             </tr>
@@ -95,7 +94,7 @@
                                 <td>Generel information</td>
                                 <td>
                                     <label>
-                                        <textarea @keyup="timeoutedSave()" @input="setStdInformation($event.target.value)" :value="stdInformation"></textarea>
+                                        <textarea @input="setStdInformation($event.target.value)" :value="stdInformation"></textarea>
                                     </label>
                                 </td>
                             </tr>
@@ -113,8 +112,8 @@
 
 <script>
     import InformationHeader from '~/components/information-header';
-    import StateStatusIndicator from '~/components/state-status-indicator';
     import FormPreview from '~/components/form-preview';
+    import axios from 'axios';
     import { mapMutations, mapGetters } from 'vuex';
 
     export default {
@@ -136,14 +135,20 @@
                 setStdArrivalTime: 'stdArrivalTime',
                 setStdDepartureTime: 'stdDepartureTime',
                 setStdInformation: 'stdInformation',
-                setFormState: 'setFormState'
             }),
-            async timeoutedSave() {
-                this.$store.dispatch('timeoutFormConfigSave', this.$store.state.formConfig);
+            async save() {
+                let headers = {
+                    'Content-type': 'application/json'
+                }
+
+                let payload = this.$store.state.formConfig;
+                try {
+                    await axios.post("http://localhost:4752/forms", payload, { headers });
+                } catch(error) {
+                    console.error("failed to create form: ", error);
+                    return;
+                }
             },
-            async save(){
-                this.$store.dispatch('instantSaveFormConfig', this.$store.state.formConfig);
-            }
         },
         computed: {
             ...mapGetters([
@@ -160,7 +165,8 @@
                 'stdInformation'
             ]),
         },
-        components: { InformationHeader, FormPreview, StateStatusIndicator }
+        components: { InformationHeader, FormPreview },
+        middleware: "requireUser",
     }
 </script>
 

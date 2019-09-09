@@ -1,11 +1,11 @@
 <template>
     <div class="welcome-container">
         <div class="headers">
-            <h1>Velkommen til HUAS</h1>
+            <h1>Velkommen til Hytte Index</h1>
             <h2>Hurtigere og nemmere hytte (ud)lejning for alle parter</h2>
         </div>
         <div class="short-description">
-            <p>HUAS er et hytteadministrationssystem
+            <p>Hytte Index er et hytteadministrationssystem
             designet til at gøre dit liv
             som hytte udlejer så nemt som muligt!</p>
         </div>

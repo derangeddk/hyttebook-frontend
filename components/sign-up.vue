@@ -50,7 +50,7 @@ export default {
 
             this.emailError = "";
             this.usernameError = "";
-            let payload = {
+            let data = {
                 fullName: this.fullName,
                 username: this.username,
                 email: this.email,
@@ -63,7 +63,8 @@ export default {
 
             let response;
             try {
-                response = await axios.post('http://localhost:4752/users', payload, { headers });
+                axios.defaults.withCredentials = true;
+                response = await axios.post('http://localhost:4752/users', data, { headers });
             } catch(error) {
                 let { errorCount, username, fullName, email, password } = error.response.data;
                 if(errorCount > 0) {

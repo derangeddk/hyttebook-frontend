@@ -54,9 +54,8 @@ export default {
             }
 
             let user = response.data.user;
-            console.log(user);
 
-            this.setUser(user)
+            this.setUser(user);
             this.$router.push("/hut-management");
         },
         checkEmailValidity: function() {

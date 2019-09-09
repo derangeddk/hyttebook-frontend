@@ -20,7 +20,8 @@
                 registerHut: false,
             }
         },
-        components: { InformationHeader, NoHut, HutRegistration }
+        components: { InformationHeader, NoHut, HutRegistration },
+        middleware: "requireUser",
     }
 </script>
 

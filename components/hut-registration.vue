@@ -11,6 +11,7 @@
         <form @submit.prevent="registerHut();" class="registration-container">
             <labelled-input name="hut-name" type="text" label="Hytte navn" v-model="hutName"></labelled-input>
             <labelled-input name="street" type="text" label="Vejnavn og nummer" v-model="street"></labelled-input>
+            <labelled-input name="streetNumber" type="text" label="nummer" v-model="streetNumber"></labelled-input>
             <labelled-input @input="findCityFromZip()" name="zip-code" type="number" label="Postnummer" v-model="zipCode"></labelled-input>
             <labelled-input name="city" type="text" label="By" v-model="city"></labelled-input>
             <labelled-input name="email" type="email" label="Kontakt email" v-model="email"></labelled-input>
@@ -24,12 +25,14 @@
     import LabelledInput from '~/components/labelled-input';
     import PrimaryButton from '~/components/primary-button';
     import axios from 'axios';
+    import { mapMutations } from 'vuex';
 
     export default {
         data() {
             return {
                 hutName: "",
                 street: "",
+                streetNumber: "",
                 city: "",
                 zipCode: "",
                 email: "",
@@ -37,6 +40,9 @@
             }
         },
         methods: {
+            ...mapMutations([
+                'setHutName'
+            ]),
             async findCityFromZip() {
                 let timer = 0;
                 clearTimeout(timer);
@@ -48,6 +54,7 @@
                 let payload = {
                     hutName: this.hutName,
                     street: this.street,
+                    streetNumber: this.streetNumber,
                     city: this.city,
                     zipCode: this.zipCode,
                     email: this.email,
@@ -66,6 +73,8 @@
                     return;
                 }
 
+                this.setHutName(this.hutName);
+                this.$router.push("/dashboard");
             }
         },
         components: { LabelledInput, PrimaryButton }
