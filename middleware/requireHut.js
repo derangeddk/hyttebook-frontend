@@ -1,5 +1,9 @@
 export default function({store, redirect, app}) {
-    store.commit('initialiseCachedUser');
+    try {
+        store.commit('initialiseCachedUser');
+    } catch (error) {
+        return redirect("/hut-management");
+    }
 
     if(!store.getters.hutName) {
         return redirect("/hut-management");
