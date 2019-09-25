@@ -176,6 +176,7 @@
                 let payload = this.$store.state.formConfig;
                 let hutId = this.$store.state.user.hutId;
                 try {
+                    axios.defaults.withCredentials = true;
                     await axios.put(`http://localhost:4752/forms/${hutId}`, payload, { headers });
                 } catch(error) {
                     console.error("failed to create form: ", error);
@@ -197,6 +198,9 @@
                 'stdDepartureTime',
                 'stdInformation'
             ]),
+        },
+        created() {
+            this.$store.dispatch('getHutsFormConfigs');
         },
         components: { FormPreview },
         middleware: "requireUser",
