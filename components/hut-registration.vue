@@ -124,12 +124,14 @@
 
     async function requestCity(zip) {
         let headers = {
-                    "content-type": "application/json"
-                }
+                "content-type": "application/json"
+            }
 
         let response;
         try {
+            axios.defaults.withCredentials = false;
             response = await axios.get(`http://dawa.aws.dk/postnumre/${zip}`,headers);
+            axios.defaults.withCredentials = true;
         } catch (error) {
             console.log("Couldn't fetch city name: ", error);
         }
