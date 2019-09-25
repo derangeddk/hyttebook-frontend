@@ -1,5 +1,11 @@
 export default function({store, redirect, app}) {
-    store.commit('initialiseCachedUser');
+
+    try {
+        store.commit('initialiseCachedUser');
+    } catch (error) {
+        console.log(error);
+        return redirect("/");
+    }
 
     if(!store.getters.username) {
         return redirect("/");
