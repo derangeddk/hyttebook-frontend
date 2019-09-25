@@ -16,8 +16,6 @@ const state = () => ({
     user: {
         username: "",
         hutName: "",
-        email: "",
-        fullName: ""
     }
 });
 
@@ -63,7 +61,10 @@ const getters = {
 const mutations = {
     initialiseCachedUser: (state) => {
         if(!process.server) {
-            state.user = JSON.parse(localStorage.getItem("user"));
+            let user = JSON.parse(localStorage.getItem("user"));
+            if(user.username) {
+                state.user = user;
+            }
         }
     },
     setUser: (state, user) => {
