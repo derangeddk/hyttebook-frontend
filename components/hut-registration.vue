@@ -79,7 +79,8 @@
         },
         methods: {
             ...mapMutations([
-                'setHutName'
+                'setHutName',
+                'setHutId'
             ]),
             async findCityFromZip() {
                 let timer = 0;
@@ -115,6 +116,7 @@
                     return;
                 }
 
+                this.setHutId(response.data);
                 this.setHutName(this.hutName);
                 this.$router.push("/dashboard");
             }

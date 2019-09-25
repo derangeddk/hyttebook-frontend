@@ -16,12 +16,16 @@ const state = () => ({
     user: {
         username: "",
         hutName: "",
+        hutId: "",
     }
 });
 
 const getters = {
     hutName: state => {
         if(state.user.hutName) return state.user.hutName;
+    },
+    hutId: state => {
+        if(state.user.hutId) return state.user.hutId;
     },
     username: state => {
         if(state.user.username) return state.user.username;
@@ -76,6 +80,9 @@ const mutations = {
     },
     setHutName: (state, hutName) => {
         state.user.hutName = hutName;
+    },
+    setHutId: (state, hutId) => {
+        state.user.hutId = hutId;
     },
     showOrgType: state => {
         state.formConfig.showOrgType = !state.formConfig.showOrgType;

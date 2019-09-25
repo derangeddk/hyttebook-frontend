@@ -174,8 +174,9 @@
                 }
 
                 let payload = this.$store.state.formConfig;
+                let hutId = this.$store.state.user.hutId;
                 try {
-                    await axios.post("http://localhost:4752/forms", payload, { headers });
+                    await axios.put(`http://localhost:4752/forms/${hutId}`, payload, { headers });
                 } catch(error) {
                     console.error("failed to create form: ", error);
                     return;
