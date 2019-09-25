@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav class="top-nav">
         <div class="header-wrapper">
             <div class="site-name">
                 <h1>
@@ -32,7 +32,7 @@ import { mapGetters } from 'vuex';
 </script>
 
 <style lang="scss">
-    nav {
+    .top-nav {
         width: 100%;
         height: 60px;
         background-color: #3C6E71;
@@ -51,6 +51,7 @@ import { mapGetters } from 'vuex';
         justify-content: space-between;
         align-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
     .site-name {
@@ -60,7 +61,7 @@ import { mapGetters } from 'vuex';
     .site-name h1 {
         align-self: flex-start;
         font-size: 2.3em;
-        padding: 0.2em 0.5em;
+        padding: 0.1em 0.5em 0em;
         margin: 0;
         font-weight: 500;
     }
