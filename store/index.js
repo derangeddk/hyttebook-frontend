@@ -6,7 +6,7 @@ const state = () => ({
         showBankDetails: false,
         showEan: false,
         showCleaningToggle: false,
-        defaultCleaningIncluded: true,
+        defaultCleaningIncluded: false,
         showArrivalTime: false,
         showDepartureTime: false,
         stdArrivalTime: "",
@@ -75,6 +75,9 @@ const mutations = {
         state.user.username = user.username;
         state.user.email = user.email;
     },
+    setFormConfig: (state, formConfig) => {
+        state.formConfig = formConfig;
+    },
     setUsername: (state, username) => {
         state.user.username = username;
     },
@@ -116,8 +119,27 @@ const mutations = {
     },
 }
 
+const actions = {
+    async getHutsFormConfigs ({ state, commit }) {
+        let headers = {
+            'Content-type': 'application/json'
+        }
+
+        let result;
+        try {
+            result = await axios.get(`http://localhost:4752/forms/${state.user.hutId}`, { headers });
+        } catch(error) {
+            console.error("failed to create form: ", error);
+            return;
+        }
+        console.log(result.data);
+        commit('setFormConfig', result.data);
+    }
+}
+
 export default {
     state,
     getters,
-    mutations
+    mutations,
+    actions
 }
