@@ -106,6 +106,7 @@
 
                 let response;
                 try {
+                    axios.defaults.withCredentials = true;
                     response = await axios.post(
                         'http://localhost:4752/huts',
                         payload,
