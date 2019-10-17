@@ -77,6 +77,7 @@ export default {
                 }
                 return;
             }
+
             this.setUsername(this.username);
             this.$router.push("/hut-management");
         },
