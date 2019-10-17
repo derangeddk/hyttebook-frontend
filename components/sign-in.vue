@@ -56,12 +56,16 @@ export default {
             let headers = {
                 'Content-type': 'application/json'
             }
+
             let response;
             try {
                 response = await axios.post(
                     'http://localhost:4752/login',
                     payload,
-                    { headers }
+                    {
+                        headers,
+                        withCredentials: true
+                    }
                 );
             } catch(error) {
                 if(error.response.data.code == "NON-EXISTENT") {
