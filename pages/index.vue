@@ -28,13 +28,6 @@ export default {
         return {
             showSignIn: false,
         };
-    },
-    beforeCreate() {
-        this.$store.subscribe((mutation, state) => {
-            // Store the state object as a JSON string
-            localStorage.setItem('user', JSON.stringify(state.user));
-        });
-
     }
 }
 </script>
