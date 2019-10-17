@@ -6,7 +6,7 @@ const state = () => ({
         showBankDetails: false,
         showEan: false,
         showCleaningToggle: false,
-        defaultCleaningIncluded: true,
+        defaultCleaningIncluded: false,
         showArrivalTime: false,
         showDepartureTime: false,
         stdArrivalTime: "",
@@ -16,14 +16,16 @@ const state = () => ({
     user: {
         username: "",
         hutName: "",
-        email: "",
-        fullName: ""
-    }
+        hutId: "",
+    },
 });
 
 const getters = {
     hutName: state => {
         if(state.user.hutName) return state.user.hutName;
+    },
+    hutId: state => {
+        if(state.user.hutId) return state.user.hutId;
     },
     username: state => {
         if(state.user.username) return state.user.username;
@@ -61,20 +63,20 @@ const getters = {
 }
 
 const mutations = {
-    initialiseCachedUser: (state) => {
-        if(!process.server) {
-            state.user = JSON.parse(localStorage.getItem("user"));
-        }
-    },
     setUser: (state, user) => {
         state.user.username = user.username;
-        state.user.email = user.email;
+    },
+    setFormConfig: (state, formConfig) => {
+        state.formConfig = formConfig;
     },
     setUsername: (state, username) => {
         state.user.username = username;
     },
     setHutName: (state, hutName) => {
         state.user.hutName = hutName;
+    },
+    setHutId: (state, hutId) => {
+        state.user.hutId = hutId;
     },
     showOrgType: state => {
         state.formConfig.showOrgType = !state.formConfig.showOrgType;
@@ -108,8 +110,27 @@ const mutations = {
     },
 }
 
+const actions = {
+    async getHutsFormConfigs ({ state, commit }) {
+        let headers = {
+            'Content-type': 'application/json'
+        }
+
+        let result;
+        try {
+            result = await axios.get(`http://localhost:4752/forms/${state.user.hutId}`, { headers });
+        } catch(error) {
+            console.error("failed to create form: ", error);
+            return;
+        }
+        console.log(result.data);
+        commit('setFormConfig', result.data);
+    }
+}
+
 export default {
     state,
     getters,
-    mutations
+    mutations,
+    actions
 }

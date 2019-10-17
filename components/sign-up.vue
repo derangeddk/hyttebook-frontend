@@ -1,14 +1,56 @@
 <template>
     <form @submit.prevent="signUp();" class="sign-up-container">
-        <labelled-input-with-feedback @input="checkFullNameValidity()" :errorMessage="fullNameError" name="full-name" type="text" label="Fulde navn" v-model="fullName"></labelled-input-with-feedback>
-        <labelled-input-with-feedback @input="checkUsernameValidity()" :errorMessage="usernameError" name="username" type="text" label="Brugernavn" v-model="username"></labelled-input-with-feedback>
-        <labelled-input-with-feedback @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" name="email" type="text" label="Email" v-model="email"></labelled-input-with-feedback>
-        <labelled-input-with-feedback @input="checkPasswordValidity()" @change="checkPasswordValidity()" :guidanceMessage="passwordGuidance" :errorMessage="passwordError" name="password" type="password" label="Password" v-model="password"></labelled-input-with-feedback>
-        <labelled-input-with-feedback @input="checkPasswordMatches()" @change="checkPasswordMatches()" :guidanceMessage="repeatedPasswordGuidance" :errorMessage="repeatedPasswordError" name="repeatedPassword" type="password" label="Gentag password" v-model="repeatedPassword"></labelled-input-with-feedback>
+        <labelled-input-with-feedback
+            @input="checkFullNameValidity()"
+            :errorMessage="fullNameError"
+            name="full-name"
+            type="text"
+            label="Fulde navn"
+            v-model="fullName">
+        </labelled-input-with-feedback>
+        <labelled-input-with-feedback
+            @input="checkUsernameValidity()"
+            :errorMessage="usernameError"
+            name="username"
+            type="text"
+            label="Brugernavn"
+            v-model="username">
+        </labelled-input-with-feedback>
+        <labelled-input-with-feedback
+            @input="checkEmailValidity()"
+            :guidanceMessage="emailGuidance"
+            :errorMessage="emailError"
+            name="email"
+            type="text"
+            label="Email"
+            v-model="email">
+        </labelled-input-with-feedback>
+        <labelled-input-with-feedback
+            @input="checkPasswordValidity()"
+            @change="checkPasswordValidity()"
+            :guidanceMessage="passwordGuidance"
+            :errorMessage="passwordError"
+            name="password"
+            type="password"
+            label="Password"
+            v-model="password">
+        </labelled-input-with-feedback>
+        <labelled-input-with-feedback
+            @input="checkPasswordMatches()"
+            @change="checkPasswordMatches()"
+            :guidanceMessage="repeatedPasswordGuidance"
+            :errorMessage="repeatedPasswordError"
+            name="repeatedPassword"
+            type="password"
+            label="Gentag password"
+            v-model="repeatedPassword">
+        </labelled-input-with-feedback>
 
         <primary-button type="submit">Registrer</primary-button>
 
-        <secondary-button @click="$emit('requestLogin')">Gå til login</secondary-button>
+        <secondary-button @click="$emit('requestLogin')">
+            Gå til login
+        </secondary-button>
     </form>
 </template>
 
@@ -64,9 +106,20 @@ export default {
             let response;
             try {
                 axios.defaults.withCredentials = true;
-                response = await axios.post('http://localhost:4752/users', data, { headers });
+                response = await axios.post(
+                    'http://localhost:4752/users',
+                    data,
+                    { headers }
+                );
             } catch(error) {
-                let { errorCount, username, fullName, email, password } = error.response.data;
+                let {
+                    errorCount,
+                    username,
+                    fullName,
+                    email,
+                    password
+                } = error.response.data;
+
                 if(errorCount > 0) {
                     this.fullNameError = fullName[0] ? fullName[0].da : "";
                     this.usernameError = username[0] ? username[0].da : "";
@@ -82,7 +135,11 @@ export default {
             this.$router.push("/hut-management");
         },
         fieldsAreBlank: function() {
-            if(this.fullName && this.username && this.email && this.password && this.password == this.repeatedPassword) {
+            if(this.fullName &&
+                this.username &&
+                this.email &&
+                this.password &&
+                this.password == this.repeatedPassword) {
                 return false;
             }
 

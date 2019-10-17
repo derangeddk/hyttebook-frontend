@@ -30,7 +30,11 @@ export default {
         flex-direction: column;
         width: 50vw;
         background-color: #3C6E71;
-        background-image: linear-gradient(0deg, lighten(#3C6E71, 20%), lighten(#3C6E71, 25%));
+        background-image: linear-gradient(
+                0deg,
+                lighten(#3C6E71, 20%),
+                lighten(#3C6E71, 25%)
+            );
         padding: 100px 40px;
 
         h1 {

@@ -6,14 +6,24 @@
                 <div class="standard-information-wrapper">
                     <div class="standard-information" v-if="anyStandardInformation">
                         <h3>Generel information</h3>
-                        <div class="standard-information-text" v-html="prettyStdInformation" v-if="prettyStdInformation"></div>
+                        <div class="standard-information-text"
+                            v-html="prettyStdInformation"
+                            v-if="prettyStdInformation">
+                        </div>
                         <ul>
-                            <li v-if="stdArrivalTime && !showArrivalTimeInputfield">Man har adgang til hytten fra kl. {{ stdArrivalTime }} </li>
-                            <li v-if="stdDepartureTime && !showDepartureTimeInputfield">Hytten skal være forladt senest kl. {{ stdDepartureTime }}</li>
-                            <li v-if="defaultCleaningIncluded && !showCleaningToggle">Vi står for rengøringen</li>
-                            <li v-if="!defaultCleaningIncluded && !showCleaningToggle">Du står selv for rengøringen</li>
+                            <li v-if="stdArrivalTime && !showArrivalTimeInputfield">
+                                Man har adgang til hytten fra kl. {{ stdArrivalTime }}
+                            </li>
+                            <li v-if="stdDepartureTime && !showDepartureTimeInputfield">
+                                Hytten skal være forladt senest kl. {{ stdDepartureTime }}
+                            </li>
+                            <li v-if="defaultCleaningIncluded && !showCleaningToggle">
+                                Vi står for rengøringen
+                            </li>
+                            <li v-if="!defaultCleaningIncluded && !showCleaningToggle">
+                                Du står selv for rengøringen
+                            </li>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -34,42 +44,72 @@
 
                     <label>
                         <span>Fornavn</span>
-                        <input type="text" name="form-firstname" required placeholder="Birgitte">
+                        <input
+                            type="text"
+                            name="form-firstname"
+                            required placeholder="Birgitte"
+                        >
                     </label>
 
                     <label>
                         <span>Efternavn</span>
-                        <input type="text" name="form-lastname" required placeholder="Hansen">
+                        <input
+                            type="text"
+                            name="form-lastname"
+                            required placeholder="Hansen"
+                        >
                     </label>
 
                     <label>
                         <span>Adresse</span>
-                        <input type="text" name="form-address" required placeholder="Vejnavn og nr">
+                        <input
+                            type="text"
+                            name="form-address"
+                            required placeholder="Vejnavn og nr"
+                        >
                     </label>
 
                     <label>
                         <span>Postnummer</span>
-                        <input type="text" name="form-zipcode" required placeholder="2500">
+                        <input
+                            type="text"
+                            name="form-zipcode"
+                            required placeholder="2500"
+                        >
                     </label>
 
                     <label>
                         <span>By</span>
-                        <input type="text" name="form-city" required placeholder="Valby">
+                        <input
+                            type="text"
+                            name="form-city"
+                            required placeholder="Valby"
+                        >
                     </label>
 
                     <label>
                         <span>Land</span>
-                        <input type="text" name="form-country" placeholder="Denmark">
+                        <input
+                            type="text"
+                            name="form-country"
+                            placeholder="Denmark"
+                        >
                     </label>
 
                     <label>
                         <span>Telefon</span>
-                        <input type="text" name="form-phone-number">
+                        <input
+                            type="text"
+                            name="form-phone-number"
+                        >
                     </label>
 
                     <label>
                         <span>Email</span>
-                        <input type="email" required name="form-email">
+                        <input
+                            type="email"
+                            required name="form-email"
+                        >
                     </label>
                 </div>
 
@@ -82,7 +122,11 @@
                     <label v-if="showBankDetails">
                         <span>Reg. og kontonummer</span>
                         <div class="full-bank-account-number">
-                            <input class="bank-account-registration-number" type="text" name="form-reg-number">
+                            <input
+                                class="bank-account-registration-number"
+                                type="text"
+                                name="form-reg-number"
+                            >
                             <input type="text" name="form-acc-number">
                         </div>
                     </label>
@@ -94,27 +138,45 @@
 
                     <label v-if="showCleaningToggle">
                         <span>Rengøring ønskes</span>
-                        <input type="checkbox" name="form-cleaning" :checked="defaultCleaningIncluded">
+                        <input
+                            type="checkbox"
+                            name="form-cleaning"
+                            :checked="defaultCleaningIncluded"
+                        >
                     </label>
 
                     <label>
                         <span>Ankomst dato</span>
-                        <input type="date" name="form-arrival-date">
+                        <input
+                            type="date"
+                            name="form-arrival-date"
+                        >
                     </label>
 
                     <label v-if="showArrivalTime">
                         <span>Ankomst tid</span>
-                        <input type="time" name="form-arrival-time" :value="stdArrivalTime">
+                        <input
+                            type="time"
+                            name="form-arrival-time"
+                            :value="stdArrivalTime"
+                        >
                     </label>
 
                     <label>
                         <span>Afrejse dato</span>
-                        <input type="date" name="form-departure-date">
+                        <input
+                            type="date"
+                            name="form-departure-date"
+                        >
                     </label>
 
                     <label v-if="showDepartureTime">
                         <span>Afrejse tid</span>
-                        <input type="time" name="form-departure-time" :value="stdDepartureTime">
+                        <input
+                            type="time"
+                            name="form-departure-time"
+                            :value="stdDepartureTime"
+                        >
                     </label>
                 </div>
             </div>
