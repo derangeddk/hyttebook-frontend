@@ -65,7 +65,6 @@ const getters = {
 const mutations = {
     setUser: (state, user) => {
         state.user.username = user.username;
-        state.user.email = user.email;
     },
     setFormConfig: (state, formConfig) => {
         state.formConfig = formConfig;
