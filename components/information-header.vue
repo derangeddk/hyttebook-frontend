@@ -1,9 +1,9 @@
 <template>
-    <nav>
+    <nav class="top-nav">
         <div class="header-wrapper">
             <div class="site-name">
                 <h1>
-                    HUAS
+                    <nuxt-link class="link" to="/">Hytte Index</nuxt-link>
                 </h1>
             </div>
             <div class="logged-in-user-information">
@@ -32,11 +32,15 @@ import { mapGetters } from 'vuex';
 </script>
 
 <style lang="scss">
-    nav {
+    .top-nav {
         width: 100%;
         height: 60px;
         background-color: #3C6E71;
-        background-image: linear-gradient(300deg, lighten(#3C6E71, 17%) 60%, lighten(#3C6E71, 22%));
+        background-image: linear-gradient(
+                300deg,
+                lighten(#3C6E71, 17%) 60%,
+                lighten(#3C6E71, 22%)
+            );
         text-align: center;
         color: black;
     }
@@ -47,6 +51,7 @@ import { mapGetters } from 'vuex';
         justify-content: space-between;
         align-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
     .site-name {
@@ -56,7 +61,7 @@ import { mapGetters } from 'vuex';
     .site-name h1 {
         align-self: flex-start;
         font-size: 2.3em;
-        padding: 0.2em 0.5em;
+        padding: 0.1em 0.5em 0em;
         margin: 0;
         font-weight: 500;
     }
@@ -78,6 +83,11 @@ import { mapGetters } from 'vuex';
             padding: 0 1.2em;
             font-size: 1.1em;
         }
+    }
+
+    .link {
+        text-decoration: inherit;
+        color: black;
     }
 </style>
 

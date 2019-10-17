@@ -9,7 +9,15 @@
                 {{ guidanceMessage }}
             </span>
         </span>
-        <input v-bind:class="{correct: inputCorrectness}" :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)" @change="$emit('change')">
+        <input
+            v-bind:class="{correct: inputCorrectness}"
+            :name="name"
+            :type="type"
+            :value="value"
+            autocomplete="new-password"
+            @input="$emit('input', $event.target.value)"
+            @change="$emit('change')"
+        >
     </label>
 </template>
 

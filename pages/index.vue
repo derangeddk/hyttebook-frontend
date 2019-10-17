@@ -17,12 +17,18 @@ import Welcome from '~/components/welcome';
 import HideableContainer from '~/components/hideable-container';
 
 export default {
+    head: {
+        meta: [
+            { charset: 'utf-8' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+        ]
+    },
     components: { SignUp, SignIn, Welcome, HideableContainer },
     data() {
         return {
             showSignIn: false,
         };
-    },
+    }
 }
 </script>
 

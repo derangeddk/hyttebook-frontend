@@ -9,7 +9,14 @@
                 {{ guidanceMessage }}
             </span>
         </span>
-        <input :name="name" :type="type" :value="value" autocomplete="new-password" @input="$emit('input', $event.target.value)" @change="$emit('change')">
+        <input
+            :name="name"
+            :type="type"
+            :value="value"
+            autocomplete="new-password"
+            @input="$emit('input', $event.target.value)"
+            @change="$emit('change')"
+        >
     </label>
 </template>
 

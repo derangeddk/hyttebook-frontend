@@ -1,11 +1,11 @@
 <template>
     <div class="welcome-container">
         <div class="headers">
-            <h1>Velkommen til HUAS</h1>
+            <h1>Velkommen til Hytte Index</h1>
             <h2>Hurtigere og nemmere hytte (ud)lejning for alle parter</h2>
         </div>
         <div class="short-description">
-            <p>HUAS er et hytteadministrationssystem
+            <p>Hytte Index er et hytteadministrationssystem
             designet til at gøre dit liv
             som hytte udlejer så nemt som muligt!</p>
         </div>
@@ -30,7 +30,11 @@ export default {
         flex-direction: column;
         width: 50vw;
         background-color: #3C6E71;
-        background-image: linear-gradient(0deg, lighten(#3C6E71, 20%), lighten(#3C6E71, 25%));
+        background-image: linear-gradient(
+                0deg,
+                lighten(#3C6E71, 20%),
+                lighten(#3C6E71, 25%)
+            );
         padding: 100px 40px;
 
         h1 {

@@ -1,14 +1,12 @@
 import axios from 'axios';
 
 const state = () => ({
-    timer: 0,
-    formState: "",
     formConfig: {
         showOrgType: false,
         showBankDetails: false,
         showEan: false,
         showCleaningToggle: false,
-        defaultCleaningIncluded: true,
+        defaultCleaningIncluded: false,
         showArrivalTime: false,
         showDepartureTime: false,
         stdArrivalTime: "",
@@ -18,17 +16,19 @@ const state = () => ({
     user: {
         username: "",
         hutName: "",
-        email: "",
-        fullName: ""
-    }
+        hutId: "",
+    },
 });
 
 const getters = {
     hutName: state => {
-        return state.user.hutName;
+        if(state.user.hutName) return state.user.hutName;
+    },
+    hutId: state => {
+        if(state.user.hutId) return state.user.hutId;
     },
     username: state => {
-        return state.user.username;
+        if(state.user.username) return state.user.username;
     },
     showOrgType: state => {
         return state.formConfig.showOrgType;
@@ -60,23 +60,23 @@ const getters = {
     stdInformation: state => {
         return state.formConfig.stdInformation;
     },
-    formState: state => {
-        return state.formState;
-    }
 }
 
 const mutations = {
     setUser: (state, user) => {
         state.user.username = user.username;
-        state.user.hutName = user.hutName;
-        state.user.email = user.email;
-        state.user.fullName = user.fullName;
+    },
+    setFormConfig: (state, formConfig) => {
+        state.formConfig = formConfig;
     },
     setUsername: (state, username) => {
         state.user.username = username;
     },
     setHutName: (state, hutName) => {
         state.user.hutName = hutName;
+    },
+    setHutId: (state, hutId) => {
+        state.user.hutId = hutId;
     },
     showOrgType: state => {
         state.formConfig.showOrgType = !state.formConfig.showOrgType;
@@ -108,30 +108,24 @@ const mutations = {
     stdInformation: (state, text) => {
         state.formConfig.stdInformation = text;
     },
-    setFormState: (state, status) => {
-        state.formState = status;
-    }
 }
 
 const actions = {
-    timeoutFormConfigSave: async (context, payload) => {
-        clearTimeout(state.timer);
-        state.timer = setTimeout(() => {
-            try {
-                saveForm(payload, context);
-            } catch(e) {
-                console.log(e);
-            }
-        }, 600);
-    },
-    instantSaveFormConfig: async (context, payload) => {
-        try {
-            saveForm(payload, context);
-        } catch(e) {
-            console.log(e);
+    async getHutsFormConfigs ({ state, commit }) {
+        let headers = {
+            'Content-type': 'application/json'
         }
-    }
 
+        let result;
+        try {
+            result = await axios.get(`http://localhost:4752/forms/${state.user.hutId}`, { headers });
+        } catch(error) {
+            console.error("failed to create form: ", error);
+            return;
+        }
+        console.log(result.data);
+        commit('setFormConfig', result.data);
+    }
 }
 
 export default {
@@ -139,27 +133,4 @@ export default {
     getters,
     mutations,
     actions
-}
-
-async function saveForm(payload, context) {
-    let headers = {
-        'Content-type': 'application/json'
-    }
-
-    context.commit("setFormState", "saving");
-    try {
-        await axios.post("http://localhost:4752/forms", payload, { headers });
-    } catch(error) {
-        console.error("failed to create form: ", error);
-        return;
-    }
-
-    //The timeout is there to ensure that the user has a chance to see the "saving" message.
-    //It will hopefully build up the users trust in the autosave functionality.
-    //The timeout should probably be removed when the site goes live
-    setTimeout(() => {
-        context.commit("setFormState", "saved");
-    }, 800);
-
-
 }

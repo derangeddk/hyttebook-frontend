@@ -1,10 +1,27 @@
 <template>
     <form @submit.prevent="login();" class="sign-in-container">
-        <labelled-input name="email" @input="checkEmailValidity()" :guidanceMessage="emailGuidance" :errorMessage="emailError" type="text" label="Email" v-model="email"></labelled-input>
-        <labelled-input name="password" @input="removePasswordErrorMessage(passwordError)" :errorMessage="passwordError" type="password" label="Password" v-model="password"></labelled-input>
+        <labelled-input
+            name="email"
+            @input="checkEmailValidity()"
+            :guidanceMessage="emailGuidance"
+            :errorMessage="emailError"
+            type="text"
+            label="Email"
+            v-model="email">
+        </labelled-input>
+        <labelled-input
+            name="password"
+            @input="removePasswordErrorMessage(passwordError)"
+            :errorMessage="passwordError"
+            type="password"
+            label="Password"
+            v-model="password">
+        </labelled-input>
         <primary-button type="submit">Login</primary-button>
 
-        <secondary-button @click="$emit('requestSignUp')">Gå til registrering</secondary-button>
+        <secondary-button @click="$emit('requestSignUp')">
+            Gå til registrering
+        </secondary-button>
     </form>
 </template>
 
@@ -39,9 +56,17 @@ export default {
             let headers = {
                 'Content-type': 'application/json'
             }
+
             let response;
             try {
-                response = await axios.post('http://localhost:4752/login', payload, { headers });
+                response = await axios.post(
+                    'http://localhost:4752/login',
+                    payload,
+                    {
+                        headers,
+                        withCredentials: true
+                    }
+                );
             } catch(error) {
                 if(error.response.data.code == "NON-EXISTENT") {
                     this.emailError = "kunne ikke findes";
@@ -54,9 +79,8 @@ export default {
             }
 
             let user = response.data.user;
-            console.log(user);
 
-            this.setUser(user)
+            this.setUser(user);
             this.$router.push("/hut-management");
         },
         checkEmailValidity: function() {
