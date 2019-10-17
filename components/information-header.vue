@@ -3,12 +3,17 @@
         <div class="header-wrapper">
             <div class="site-name">
                 <h1>
-                    <nuxt-link class="link" to="/">Hytte Index</nuxt-link>
+                    <nuxt-link class="link" to="/dashboard">Hytte Index</nuxt-link>
                 </h1>
             </div>
             <div class="logged-in-user-information">
                 <div class="username">{{ username }}</div>
                 <div class="hutname">{{ hutName }}</div>
+                <div class="user-details-dropdown">
+                    <secondary-button @click="logout()">
+                        Log ud
+                    </secondary-button>
+                </div>
             </div>
         </div>
     </nav>
@@ -16,10 +21,33 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import SecondaryButton from '~/components/secondary-button';
+import axios from 'axios';
+import { async } from 'q';
 
     export default {
         data() {
             return {
+            }
+        },
+        methods: {
+            logout: async function() {
+                let response;
+                try {
+                    response = await axios.post(
+                        "http://localhost:4752/logout",
+                        {},//apparently axios needs an empty data object to include options.
+                        {
+                            withCredentials: true
+                        }
+                    );
+                } catch(error) {
+                    console.log("this is the error: ", error);
+                }
+
+                if(response.status != 204) return;
+
+                this.$router.push("/");
             }
         },
         computed: {
@@ -27,7 +55,8 @@ import { mapGetters } from 'vuex';
                 'hutName',
                 'username'
             ]),
-        }
+        },
+        components: { SecondaryButton }
     }
 </script>
 
@@ -72,6 +101,7 @@ import { mapGetters } from 'vuex';
         justify-content:flex-start;
         align-items: center;
         line-height: 100%;
+        cursor: pointer;
 
         .hutname {
             padding: 0 1.2em;
@@ -82,6 +112,19 @@ import { mapGetters } from 'vuex';
         .username {
             padding: 0 1.2em;
             font-size: 1.1em;
+        }
+
+        .user-details-dropdown {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        &:hover .user-details-dropdown {
+            display: block;
         }
     }
 
