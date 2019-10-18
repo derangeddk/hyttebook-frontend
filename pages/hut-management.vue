@@ -50,7 +50,7 @@
                 )
             } catch(error) {
                 //no idea what error might pop up at this point
-                console.log(error);
+                console.log("error getting huts: ", error);
             }
 
             if(response.status == 204) return;
