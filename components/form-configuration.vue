@@ -304,5 +304,4 @@
     .submit-button:hover {
         background-color: lighten(#3C6E71, 15%);
     }
-
 </style>
