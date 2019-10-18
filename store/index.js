@@ -118,12 +118,17 @@ const actions = {
 
         let result;
         try {
-            result = await axios.get(`http://localhost:4752/forms/${state.user.hutId}`, { headers });
+            result = await axios.get(
+                `http://localhost:4752/forms/${state.user.hutId}`,
+                {
+                    headers,
+                    withCredentials: true
+                }
+            );
         } catch(error) {
             console.error("failed to create form: ", error);
             return;
         }
-        console.log(result.data);
         commit('setFormConfig', result.data);
     }
 }
