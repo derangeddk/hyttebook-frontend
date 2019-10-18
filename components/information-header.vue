@@ -9,7 +9,9 @@
             <div class="logged-in-user-information">
                 <div class="username">{{ username }}</div>
                 <div class="hutname">{{ hutName }}</div>
+
                 <div class="user-details-dropdown">
+                    <div class="arrow-up"></div>
                     <secondary-button @click="logout()">
                         Log ud
                     </secondary-button>
@@ -117,10 +119,24 @@ import { async } from 'q';
         .user-details-dropdown {
             display: none;
             position: absolute;
+            right: 20px;
+            top: 55px;
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+
+            .arrow-up {
+                display: block;
+                position: absolute;
+                left: 160px;
+                top: -10px;
+                width: 0;
+                height: 0;
+                border-left: 25px solid transparent;
+                border-right: 25px solid transparent;
+                border-bottom: 10px solid white;
+            }
         }
 
         &:hover .user-details-dropdown {
