@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/derangeddk/hyttebook-frontend#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "dgram": "^1.0.1",
     "fs": "0.0.1-security",
     "net": "^1.0.2",
